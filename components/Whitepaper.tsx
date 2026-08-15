@@ -6,6 +6,7 @@ import {
   FaArrowRight,
   FaDownload,
 } from "react-icons/fa6";
+import { siteConfig } from "../config/siteConfig";
 
 export default function Whitepaper() {
   return (
@@ -146,7 +147,8 @@ export default function Whitepaper() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
 
                 <a
-                  href="#"
+                  href={siteConfig.links.whitepaper}
+  download
                   className="
                     group
                     inline-flex

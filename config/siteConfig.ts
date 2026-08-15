@@ -16,7 +16,7 @@ export const siteConfig = {
     buy: "#",
     dexScreener: "#",
     jupiter: "#",
-    whitepaper: "#",
+    whitepaper: "/whitepaper.pdf",
   },
 
   navigation: [
