@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaBars, FaXmark } from "react-icons/fa6";
+import { FaBars, FaXmark, FaTelegram, FaDiscord, FaXTwitter } from "react-icons/fa6";
 import { siteConfig } from "../config/siteConfig";
 
 export default function Navbar() {
@@ -81,24 +81,37 @@ export default function Navbar() {
 
         {/* DESKTOP NAVIGATION */}
 
-        <div className="hidden items-center gap-8 md:flex">
-          {siteConfig.navigation.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="
-                text-sm
-                font-medium
-                text-white/55
-                transition-colors
-                duration-300
-                hover:text-white
-              "
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+        <div className="hidden items-center gap-3 lg:flex">
+  <a
+    href={siteConfig.links.twitter}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="X"
+    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaXTwitter />
+  </a>
+
+  <a
+    href={siteConfig.links.telegram}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Telegram"
+    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaTelegram />
+  </a>
+
+  <a
+    href={siteConfig.links.discord}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Discord"
+    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaDiscord />
+  </a>
+</div>
 
         {/* DESKTOP BUY BUTTON */}
 
@@ -225,6 +238,34 @@ export default function Navbar() {
               >
                 Buy RCX
               </a>
+              <div className="mt-3 flex gap-3 border-t border-white/10 pt-3">
+  <a
+    href={siteConfig.links.twitter}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaXTwitter />
+  </a>
+
+  <a
+    href={siteConfig.links.telegram}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaTelegram />
+  </a>
+
+  <a
+    href={siteConfig.links.discord}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
+  >
+    <FaDiscord />
+  </a>
+</div>
             </div>
           </motion.div>
         )}
