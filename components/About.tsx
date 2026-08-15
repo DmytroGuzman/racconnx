@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import type { IconType } from "react-icons";
+import { siteConfig } from "../config/siteConfig";
 
 type Feature = {
   icon: IconType;
@@ -43,9 +44,29 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden px-6 py-32 lg:py-40"
+      className="section-shell relative overflow-hidden px-6 py-32 lg:py-40"
     >
-      <div className="mx-auto max-w-7xl">
+      {/* BACKGROUND GLOW */}
+
+      <div
+        className="
+          section-glow
+          section-glow-purple
+          left-[-180px]
+          top-[20%]
+        "
+      />
+
+      <div
+        className="
+          section-glow
+          section-glow-green
+          right-[-180px]
+          bottom-[10%]
+        "
+      />
+
+      <div className="section-container">
 
         {/* HEADER */}
 
@@ -127,9 +148,11 @@ export default function About() {
                   bg-[#090C13]/70
                   p-8
                   backdrop-blur-xl
-                  transition-colors
+                  transition-all
                   duration-300
-                  hover:border-white/[0.14]
+                  hover:border-purple-400/20
+                  hover:bg-[#0c1018]/80
+                  hover:shadow-[0_15px_50px_rgba(0,0,0,.25)]
                 "
               >
 
@@ -171,6 +194,7 @@ export default function About() {
                     transition-all
                     duration-300
                     group-hover:border-purple-400/30
+                    group-hover:bg-purple-400/[0.06]
                     group-hover:text-green-400
                   "
                 >
@@ -255,7 +279,7 @@ export default function About() {
             </span>
 
             <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white">
-              Solana
+              {siteConfig.token.network}
             </p>
           </div>
 
@@ -275,7 +299,7 @@ export default function About() {
             </span>
 
             <p className="mt-2 font-['Orbitron'] text-xl font-bold text-green-400">
-              0%
+              {siteConfig.token.tax}
             </p>
           </div>
 
