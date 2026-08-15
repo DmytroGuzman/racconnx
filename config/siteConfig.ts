@@ -6,16 +6,26 @@ export const siteConfig = {
     network: "Solana",
     totalSupply: "1,000,000,000",
     tax: "0%",
-    contract: "YOUR_CONTRACT_ADDRESS",
+    decimals: 9,
+
+    contract: "95BNZdoQfzBTQ9etGsqb5rVr94XRgYiCo8QQAa86mw9v",
+
+    explorer:
+      "https://explorer.solana.com/address/95BNZdoQfzBTQ9etGsqb5rVr94XRgYiCo8QQAa86mw9v",
   },
 
   links: {
+    // Socials
     twitter: "#",
     telegram: "#",
     discord: "#",
+
+    // Trading
     buy: "#",
     dexScreener: "#",
     jupiter: "#",
+
+    // Documents
     whitepaper: "/whitepaper.pdf",
   },
 

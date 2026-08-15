@@ -74,27 +74,31 @@ export default function Hero() {
   </a>
 </div>
             {/* STATS */}
-            <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">
-              <StatsCard
-                value={<>1B</>}
-                title="Supply"
-              />
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">
+  <StatsCard
+  value={
+    Number(siteConfig.token.totalSupply.replace(/,/g, "")) >= 1_000_000_000
+      ? `${Number(siteConfig.token.totalSupply.replace(/,/g, "")) / 1_000_000_000}B`
+      : siteConfig.token.totalSupply
+  }
+  title="Supply"
+/>
 
-              <StatsCard
-                value={<>0%</>}
-                title="Tax"
-              />
+  <StatsCard
+    value={siteConfig.token.tax}
+    title="Tax"
+  />
 
-              <StatsCard
-                value="SOL"
-                title="Network"
-              />
+  <StatsCard
+    value={siteConfig.token.network}
+    title="Network"
+  />
 
-              <StatsCard
-                value="$1"
-                title="Goal"
-              />
-            </div>
+  <StatsCard
+    value={siteConfig.symbol}
+    title="Token"
+  />
+</div>
           </motion.div>
 
           {/* RIGHT */}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaBars, FaXmark, FaTelegram, FaDiscord, FaXTwitter } from "react-icons/fa6";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import { siteConfig } from "../config/siteConfig";
 
 export default function Navbar() {
@@ -40,7 +40,7 @@ export default function Navbar() {
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 z-50 w-full px-4 py-4 md:px-6 md:py-5"
+      className="fixed left-0 top-0 z-50 w-full px-4 py-4 md:px-6 md:py-5"
     >
       <nav
         className={`
@@ -70,50 +70,32 @@ export default function Navbar() {
           onClick={closeMenu}
           className="font-['Orbitron'] text-xl font-black tracking-[0.08em] md:text-2xl"
         >
-          <span className="text-white">
-            RACCOON
-          </span>
-
-          <span className="text-purple-400">
-            X
-          </span>
+          <span className="text-white">RACCOON</span>
+          <span className="text-purple-400">X</span>
         </a>
 
         {/* DESKTOP NAVIGATION */}
 
-        <div className="hidden items-center gap-3 lg:flex">
-  <a
-    href={siteConfig.links.twitter}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="X"
-    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaXTwitter />
-  </a>
+        <div className="hidden items-center gap-7 md:flex lg:gap-8">
+          {siteConfig.navigation.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="
+                text-sm
+                font-medium
+                text-white/55
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
 
-  <a
-    href={siteConfig.links.telegram}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Telegram"
-    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaTelegram />
-  </a>
-
-  <a
-    href={siteConfig.links.discord}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Discord"
-    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/50 transition hover:border-purple-500/30 hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaDiscord />
-  </a>
-</div>
-
-        {/* DESKTOP BUY BUTTON */}
+        {/* BUY BUTTON */}
 
         <a
           href={siteConfig.links.buy}
@@ -238,34 +220,6 @@ export default function Navbar() {
               >
                 Buy RCX
               </a>
-              <div className="mt-3 flex gap-3 border-t border-white/10 pt-3">
-  <a
-    href={siteConfig.links.twitter}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaXTwitter />
-  </a>
-
-  <a
-    href={siteConfig.links.telegram}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaTelegram />
-  </a>
-
-  <a
-    href={siteConfig.links.discord}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex h-12 flex-1 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition hover:bg-white/[0.07] hover:text-white"
-  >
-    <FaDiscord />
-  </a>
-</div>
             </div>
           </motion.div>
         )}
