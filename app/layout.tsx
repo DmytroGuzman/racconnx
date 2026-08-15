@@ -1,6 +1,5 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,13 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://raccoonx.xyz"),
+
   title: {
-    default: "RACCOONX — Cyberpunk Solana Meme Coin",
+    default: "RACCOONX — Stealing Profits. Not Trash.",
     template: "%s | RACCOONX",
   },
 
   description:
-    "RACCOONX is a cyberpunk community-driven meme coin built on Solana. Fast, transparent and designed for the long run.",
+    "RACCOONX is a cyberpunk meme coin built on Solana. Community, speed and pure raccoon energy.",
+
+  applicationName: "RACCOONX",
 
   keywords: [
     "RACCOONX",
@@ -29,40 +32,46 @@ export const metadata: Metadata = {
     "Solana meme coin",
     "crypto",
     "meme coin",
+    "RACCOONX token",
   ],
 
+  alternates: {
+    canonical: "https://raccoonx.xyz",
+  },
+
   openGraph: {
-    title: "RACCOONX — Cyberpunk Solana Meme Coin",
-    description:
-      "Stealing Profits. Not Trash. The next generation Solana meme coin.",
     type: "website",
+    url: "https://raccoonx.xyz",
+    siteName: "RACCOONX",
+    title: "RACCOONX — Stealing Profits. Not Trash.",
+    description:
+      "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "RACCOONX — Cyberpunk Solana Meme Coin",
+        alt: "RACCOONX — Stealing Profits. Not Trash.",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "RACCOONX — Cyberpunk Solana Meme Coin",
+    title: "RACCOONX — Stealing Profits. Not Trash.",
     description:
-      "Stealing Profits. Not Trash. The next generation Solana meme coin.",
+      "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
     images: ["/og-image.png"],
   },
 
   icons: {
     icon: "/favicon.ico",
   },
-};
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -75,9 +84,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
