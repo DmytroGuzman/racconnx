@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import StatsCard from "./StatsCard";
+import { siteConfig } from "../config/siteConfig";
 
 export default function Hero() {
   return (
@@ -54,23 +55,24 @@ export default function Hero() {
               and cyberpunk aesthetics.
             </p>
 
-            {/* BUTTONS */}
-            <div className="mt-10 flex flex-wrap gap-4 sm:gap-5">
-              <button
-                type="button"
-                className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500 to-green-400 px-6 py-3.5 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(153,69,255,.55)] sm:px-8 sm:py-4"
-              >
-                Buy RCX
-              </button>
+           {/* BUTTONS */}
+<div className="mt-10 flex flex-wrap gap-4 sm:gap-5">
+  <a
+    href={siteConfig.links.buy}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500 to-green-400 px-6 py-3.5 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(153,69,255,.55)] sm:px-8 sm:py-4"
+  >
+    Buy RCX
+  </a>
 
-              <button
-                type="button"
-                className="rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 font-bold backdrop-blur-xl transition hover:bg-white/10 sm:px-8 sm:py-4"
-              >
-                Whitepaper
-              </button>
-            </div>
-
+  <a
+    href={siteConfig.links.whitepaper}
+    className="rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 font-bold backdrop-blur-xl transition hover:bg-white/10 sm:px-8 sm:py-4"
+  >
+    Whitepaper
+  </a>
+</div>
             {/* STATS */}
             <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">
               <StatsCard
