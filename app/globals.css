@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* ================================
+   ROOT
+================================ */
+
+:root {
+  --background: #05050a;
+  --foreground: #ededed;
+}
+
+/* ================================
+   BASE
+================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Prevent accidental horizontal overflow */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* ================================
+   TAILWIND THEME
+================================ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ================================
+   CARD GLOW
+================================ */
+
+.card-glow {
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.card-glow:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(153, 69, 255, 0.35);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(153, 69, 255, 0.15);
+}
+
+/* ================================
+   RACCOONX GLOBAL UI
+================================ */
+
+.section-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.section-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(120px);
+  opacity: 0.08;
+  z-index: -1;
+}
+
+.section-glow-purple {
+  background: #9945ff;
+}
+
+.section-glow-green {
+  background: #14f195;
+}
+
+.section-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  background: rgba(9, 12, 19, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  transition:
+    border-color 300ms ease,
+    background 300ms ease,
+    transform 300ms ease;
+}
+
+.section-card:hover {
+  border-color: rgba(153, 69, 255, 0.25);
+  background: rgba(12, 15, 24, 0.82);
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #14f195;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.section-label::before {
+  content: "";
+
+  width: 28px;
+  height: 1px;
+
+  background: #14f195;
+
+  box-shadow: 0 0 10px rgba(20, 241, 149, 0.7);
+}
+
+.section-title {
+  margin-top: 16px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.section-description {
+  max-width: 680px;
+  margin: 20px auto 0;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 640px) {
+  .section-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .section-title {
+    font-size: 38px;
+  }
+
+  .section-description {
+    font-size: 16px;
+  }
+}
