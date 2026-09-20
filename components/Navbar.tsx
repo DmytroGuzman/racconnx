@@ -1,15 +1,36 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { siteConfig } from "../config/siteConfig";
 import LanguageSwitcher from "./i18n/LanguageSwitcher";
+import {
+  languages,
+  useLanguage,
+  type Language,
+} from "./i18n/LanguageProvider";
 import { T } from "./i18n/LanguageProvider";
+
+const flags: Record<Language, string> = {
+  en: "/flags/gb.svg",
+  uk: "/flags/ua.svg",
+  de: "/flags/de.svg",
+  fr: "/flags/fr.svg",
+  es: "/flags/es.svg",
+  it: "/flags/it.svg",
+  pl: "/flags/pl.svg",
+  pt: "/flags/pt.svg",
+  nl: "/flags/nl.svg",
+  cs: "/flags/cz.svg",
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +58,6 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
-  // Smooth scroll without adding #section to the URL
   const scrollToSection = (
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -48,7 +68,6 @@ export default function Navbar() {
 
     event.preventDefault();
 
-    // Logo / href="#"
     if (href === "#") {
       window.scrollTo({
         top: 0,
@@ -71,12 +90,20 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
+  const selectMobileLanguage = (code: Language) => {
+    setLanguage(code);
+  };
+
   return (
     <motion.header
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed left-0 top-0 z-50 w-full px-4 py-4 md:px-6 md:py-5"
+      className="
+        fixed left-0 top-0 z-50
+        w-full px-4 py-4
+        md:px-6 md:py-5
+      "
     >
       <nav
         className={`
@@ -103,11 +130,23 @@ export default function Navbar() {
 
         <a
           href="#"
-          onClick={(event) => scrollToSection(event, "#")}
-          className="font-['Orbitron'] text-xl font-black tracking-[0.08em] md:text-2xl"
+          onClick={(event) =>
+            scrollToSection(event, "#")
+          }
+          className="
+            font-['Orbitron']
+            text-xl font-black
+            tracking-[0.08em]
+            md:text-2xl
+          "
         >
-          <span className="text-white">RACCOON</span>
-          <span className="text-purple-400">X</span>
+          <span className="text-white">
+            RACCOON
+          </span>
+
+          <span className="text-purple-400">
+            X
+          </span>
         </a>
 
         {/* DESKTOP NAVIGATION */}
@@ -117,7 +156,9 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              onClick={(event) => scrollToSection(event, link.href)}
+              onClick={(event) =>
+                scrollToSection(event, link.href)
+              }
               className="
                 text-sm
                 font-medium
@@ -132,17 +173,22 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* LANGUAGE */}
+        {/* DESKTOP LANGUAGE */}
 
         <div className="hidden md:block">
           <LanguageSwitcher />
         </div>
 
-        {/* BUY BUTTON */}
+        {/* DESKTOP BUY */}
 
         <a
           href={siteConfig.links.buy}
-          onClick={(event) => scrollToSection(event, siteConfig.links.buy)}
+          onClick={(event) =>
+            scrollToSection(
+              event,
+              siteConfig.links.buy
+            )
+          }
           className="
             hidden
             rounded-xl
@@ -166,8 +212,14 @@ export default function Navbar() {
 
         <button
           type="button"
-          onClick={() => setMenuOpen((current) => !current)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() =>
+            setMenuOpen((current) => !current)
+          }
+          aria-label={
+            menuOpen
+              ? "Close menu"
+              : "Open menu"
+          }
           className="
             flex
             h-11
@@ -184,7 +236,11 @@ export default function Navbar() {
             md:hidden
           "
         >
-          {menuOpen ? <FaXmark /> : <FaBars />}
+          {menuOpen ? (
+            <FaXmark />
+          ) : (
+            <FaBars />
+          )}
         </button>
       </nav>
 
@@ -211,29 +267,35 @@ export default function Navbar() {
             className="
               mx-4
               mt-2
-              overflow-hidden
+              max-h-[calc(100vh-110px)]
+              overflow-y-auto
               rounded-2xl
               border
               border-white/10
-              bg-black/90
+              bg-black/95
               p-3
               shadow-2xl
               backdrop-blur-2xl
               md:hidden
             "
           >
+            {/* NAV LINKS */}
+
             <div className="flex flex-col">
               {siteConfig.navigation.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={(event) =>
-                    scrollToSection(event, link.href)
+                    scrollToSection(
+                      event,
+                      link.href
+                    )
                   }
                   className="
                     rounded-xl
                     px-4
-                    py-4
+                    py-3.5
                     text-sm
                     font-medium
                     text-white/60
@@ -245,34 +307,103 @@ export default function Navbar() {
                   <T>{link.label}</T>
                 </a>
               ))}
+            </div>
 
-              <div className="mt-2 px-1">
-                <LanguageSwitcher />
-              </div>
+            {/* MOBILE LANGUAGES */}
 
-              <a
-                href={siteConfig.links.buy}
-                onClick={(event) =>
-                  scrollToSection(event, siteConfig.links.buy)
-                }
+            <div className="mt-3 border-t border-white/[0.07] pt-4">
+              <p
                 className="
-                  mt-2
-                  rounded-xl
-                  bg-gradient-to-r
-                  from-purple-500
-                  to-green-400
-                  px-4
-                  py-4
-                  text-center
-                  font-bold
-                  text-black
-                  transition
-                  hover:scale-[1.01]
+                  mb-3 px-1
+                  text-[10px]
+                  font-black
+                  uppercase
+                  tracking-[0.18em]
+                  text-white/25
                 "
               >
-                <T>Buy RCX</T>
-              </a>
+                Language
+              </p>
+
+              <div className="grid grid-cols-2 gap-2">
+                {languages.map((item) => {
+                  const active =
+                    language === item.code;
+
+                  return (
+                    <button
+                      key={item.code}
+                      type="button"
+                      onClick={() =>
+                        selectMobileLanguage(
+                          item.code as Language
+                        )
+                      }
+                      className={`
+                        flex
+                        min-w-0
+                        items-center
+                        gap-2
+                        rounded-xl
+                        border
+                        px-3
+                        py-3
+                        text-left
+                        transition
+                        ${
+                          active
+                            ? "border-purple-400/30 bg-purple-400/[0.10] text-white"
+                            : "border-white/[0.06] bg-white/[0.025] text-white/50 hover:bg-white/[0.06] hover:text-white"
+                        }
+                      `}
+                    >
+                      <span className="relative h-[18px] w-7 shrink-0 overflow-hidden rounded-[4px] border border-white/10">
+  <Image
+    src={flags[item.code as Language]}
+    alt=""
+    fill
+    sizes="28px"
+    className="object-cover"
+  />
+</span>
+
+                      <span className="truncate text-xs font-bold">
+                        {item.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+
+            {/* MOBILE BUY */}
+
+            <a
+              href={siteConfig.links.buy}
+              onClick={(event) =>
+                scrollToSection(
+                  event,
+                  siteConfig.links.buy
+                )
+              }
+              className="
+                mt-4
+                block
+                rounded-xl
+                bg-gradient-to-r
+                from-purple-500
+                to-green-400
+                px-4
+                py-4
+                text-center
+                font-bold
+                text-black
+                transition
+                hover:scale-[1.01]
+              "
+            >
+              <T>Buy RCX</T>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
