@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa6";
 
 import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
 
 const socials = [
   {
@@ -63,19 +64,12 @@ export default function Footer() {
                 tracking-[0.08em]
               "
             >
-              <span className="text-white">
-                RACCOON
-              </span>
+              <span className="text-white"><T>RACCOON</T></span>
 
-              <span className="text-purple-400">
-                X
-              </span>
+              <span className="text-purple-400"><T>X</T></span>
             </a>
 
-            <p className="mt-5 max-w-md text-sm leading-7 text-white/35">
-              A cyberpunk community-driven token built on Solana.
-              Fast, transparent and designed for the long-term.
-            </p>
+            <p className="mt-5 max-w-md text-sm leading-7 text-white/35"><T>A cyberpunk community-driven token built on Solana. Fast, transparent and designed for the long-term.</T></p>
 
             {/* SOCIALS */}
 
@@ -135,9 +129,7 @@ export default function Footer() {
               delay: 0.1,
             }}
           >
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-white/30">
-              Navigation
-            </h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-white/30"><T>Navigation</T></h3>
 
             <div className="mt-6 flex flex-col gap-4">
               {siteConfig.navigation.map((item) => (
@@ -153,7 +145,7 @@ export default function Footer() {
                     hover:text-white
                   "
                 >
-                  {item.label}
+                  <T>{item.label}</T>
                 </a>
               ))}
             </div>
@@ -178,16 +170,12 @@ export default function Footer() {
               delay: 0.2,
             }}
           >
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-white/30">
-              Ecosystem
-            </h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-white/30"><T>Ecosystem</T></h3>
 
             <div className="mt-6 space-y-5">
 
               <div>
-                <span className="text-xs text-white/25">
-                  Network
-                </span>
+                <span className="text-xs text-white/25"><T>Network</T></span>
 
                 <p className="mt-1 font-['Orbitron'] text-sm font-bold text-white">
                   {siteConfig.token.network.toUpperCase()}
@@ -195,9 +183,7 @@ export default function Footer() {
               </div>
 
               <div>
-                <span className="text-xs text-white/25">
-                  Token
-                </span>
+                <span className="text-xs text-white/25"><T>Token</T></span>
 
                 <p className="mt-1 font-['Orbitron'] text-sm font-bold text-purple-400">
                   {siteConfig.symbol}
@@ -205,9 +191,7 @@ export default function Footer() {
               </div>
 
               <div>
-                <span className="text-xs text-white/25">
-                  Tax
-                </span>
+                <span className="text-xs text-white/25"><T>Tax</T></span>
 
                 <p className="mt-1 font-['Orbitron'] text-sm font-bold text-green-400">
                   {siteConfig.token.tax}
@@ -240,12 +224,12 @@ export default function Footer() {
           "
         >
           <p>
-            © {new Date().getFullYear()} {siteConfig.name}.
-            All rights reserved.
+            © {new Date().getFullYear()} {siteConfig.name}. {" "}
+            <T>All rights reserved.</T>
           </p>
 
           <p>
-            Built on {siteConfig.token.network}.
+            <T>Built on</T> {siteConfig.token.network}.
           </p>
         </div>
       </div>

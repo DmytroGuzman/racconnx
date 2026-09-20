@@ -1,0 +1,1037 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  FaRocket,
+  FaUsers,
+  FaBolt,
+  FaShieldAlt,
+} from "react-icons/fa";
+
+import type { IconType } from "react-icons";
+import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
+
+type Feature = {
+  icon: IconType;
+  title: string;
+  text: string;
+};
+
+const features: Feature[] = [
+  {
+    icon: FaRocket,
+    title: "Lightning Fast",
+    text: "Built on Solana for ultra-fast transactions with minimal fees.",
+  },
+  {
+    icon: FaUsers,
+    title: "Community Driven",
+    text: "Every holder helps shape the future of the RACCOONX ecosystem.",
+  },
+  {
+    icon: FaBolt,
+    title: "Meme Energy",
+    text: "Cyberpunk aesthetics combined with serious viral potential.",
+  },
+  {
+    icon: FaShieldAlt,
+    title: "Secure",
+    text: "Transparent tokenomics and a long-term vision for sustainable growth.",
+  },
+];
+
+export default function About() {
+  return (
+    <section
+      id="about"
+      className="section-shell relative overflow-hidden px-6 py-32 lg:py-40"
+    >
+      {/* BACKGROUND GLOW */}
+
+      <div
+        className="
+          section-glow
+          section-glow-purple
+          left-[-180px]
+          top-[20%]
+        "
+      />
+
+      <div
+        className="
+          section-glow
+          section-glow-green
+          right-[-180px]
+          bottom-[10%]
+        "
+      />
+
+      <div className="section-container">
+
+        {/* HEADER */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.7,
+          }}
+        >
+          <div className="text-center">
+
+            <div className="section-label justify-center"><T>THE ECOSYSTEM</T></div>
+
+            <h2 className="section-title">
+              <span className="gradient-text"><T>Why RACCOONX?</T></span>
+            </h2>
+
+            <p className="section-description"><T>RACCOONX isn't just another meme coin. It's a cyberpunk brand built for speed, community, and long-term growth inside the Solana ecosystem.</T></p>
+
+          </div>
+        </motion.div>
+
+        {/* FEATURES */}
+
+        <div className="mt-20 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+
+            return (
+              <motion.article
+                key={feature.title}
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -6,
+                }}
+                className="
+                  group
+                  relative
+                  overflow-hidden
+                  rounded-[28px]
+                  border
+                  border-white/[0.08]
+                  bg-[#090C13]/70
+                  p-8
+                  backdrop-blur-xl
+                  transition-all
+                  duration-300
+                  hover:border-purple-400/20
+                  hover:bg-[#0c1018]/80
+                  hover:shadow-[0_15px_50px_rgba(0,0,0,.25)]
+                "
+              >
+
+                {/* TOP ACCENT */}
+
+                <div
+                  className="
+                    absolute
+                    left-8
+                    right-8
+                    top-0
+                    h-px
+                    bg-gradient-to-r
+                    from-transparent
+                    via-purple-500/60
+                    to-transparent
+                    opacity-0
+                    transition-opacity
+                    duration-500
+                    group-hover:opacity-100
+                  "
+                />
+
+                {/* ICON */}
+
+                <div
+                  className="
+                    flex
+                    h-14
+                    w-14
+                    items-center
+                    justify-center
+                    rounded-2xl
+                    border
+                    border-white/[0.08]
+                    bg-white/[0.035]
+                    text-xl
+                    text-purple-400
+                    transition-all
+                    duration-300
+                    group-hover:border-purple-400/30
+                    group-hover:bg-purple-400/[0.06]
+                    group-hover:text-green-400
+                  "
+                >
+                  <Icon />
+                </div>
+
+                {/* CONTENT */}
+
+                <div className="mt-8">
+
+                  <h3 className="text-2xl font-black tracking-tight">
+                    <T>{feature.title}</T>
+                  </h3>
+
+                  <p className="mt-4 text-[15px] leading-7 text-white/45">
+                    <T>{feature.text}</T>
+                  </p>
+
+                </div>
+
+                {/* NUMBER */}
+
+                <div
+                  className="
+                    absolute
+                    bottom-6
+                    right-7
+                    select-none
+                    font-['Orbitron']
+                    text-5xl
+                    font-black
+                    text-white/[0.025]
+                    transition-colors
+                    duration-500
+                    group-hover:text-purple-400/[0.06]
+                  "
+                >
+                  0{index + 1}
+                </div>
+
+              </motion.article>
+            );
+          })}
+
+        </div>
+
+        {/* BOTTOM STAT BAR */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 0.2,
+          }}
+          className="
+            mt-5
+            grid
+            overflow-hidden
+            rounded-[28px]
+            border
+            border-white/[0.08]
+            bg-[#090C13]/60
+            backdrop-blur-xl
+            sm:grid-cols-3
+          "
+        >
+
+          <div className="px-8 py-7 text-center sm:text-left">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Network</T></span>
+
+            <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white">
+              {siteConfig.token.network}
+            </p>
+          </div>
+
+          <div
+            className="
+              border-t
+              border-white/[0.06]
+              px-8
+              py-7
+              text-center
+              sm:border-l
+              sm:border-t-0
+            "
+          >
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Transaction Tax</T></span>
+
+            <p className="mt-2 font-['Orbitron'] text-xl font-bold text-green-400">
+              {siteConfig.token.tax}
+            </p>
+          </div>
+
+          <div
+            className="
+              border-t
+              border-white/[0.06]
+              px-8
+              py-7
+              text-center
+              sm:border-l
+              sm:border-t-0
+            "
+          >
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Community</T></span>
+
+            <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white"><T>Global</T></p>
+          </div>
+
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPlus } from "react-icons/fa6";
+import { T } from "./i18n/LanguageProvider";
+
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+const faqs: FAQItem[] = [
+  {
+    question: "What is RACCOONX?",
+    answer:
+      "RACCOONX is a community-driven meme token built on the Solana network, combining cyberpunk aesthetics with a strong focus on community, growth and long-term development.",
+  },
+  {
+    question: "What is the RACCOONX token?",
+    answer:
+      "RACCOONX, represented by the ticker RCX, is the native token of the ecosystem. The total supply is fixed at 1,000,000,000 RCX.",
+  },
+  {
+    question: "Why is RACCOONX built on Solana?",
+    answer:
+      "Solana provides fast transactions and low network fees, making it a natural fit for a community-focused token designed for frequent interaction and broad accessibility.",
+  },
+  {
+    question: "Where can I buy RCX?",
+    answer:
+      "Trading availability will be announced through the official RACCOONX channels as liquidity and exchange listings become available.",
+  },
+  {
+    question: "Is there a transaction tax?",
+    answer:
+      "RACCOONX is designed with a 0% transaction tax. Always verify the official contract address through our verified channels before making a purchase.",
+  },
+  {
+    question: "How can I become part of the community?",
+    answer:
+      "Follow the official RACCOONX social channels, join the community and participate in discussions, campaigns and future ecosystem initiatives.",
+  },
+];
+
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex((current) =>
+      current === index ? null : index
+    );
+  };
+
+  return (
+    <section
+      id="faq"
+      className="relative overflow-hidden px-6 py-32 lg:py-40"
+    >
+      <div className="mx-auto max-w-4xl">
+
+        {/* HEADER */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.7,
+          }}
+          className="text-center"
+        >
+          <div className="section-label justify-center"><T>FAQ</T></div>
+
+          <h2 className="section-title">
+            <span className="gradient-text"><T>Frequently Asked</T></span>
+          </h2>
+
+          <p className="section-description"><T>Everything you need to know about RACCOONX, the token and the ecosystem.</T></p>
+        </motion.div>
+
+        {/* FAQ LIST */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 0.15,
+          }}
+          className="mt-16 space-y-3"
+        >
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <div
+                key={faq.question}
+                className="
+                  overflow-hidden
+                  rounded-2xl
+                  border
+                  border-white/[0.08]
+                  bg-[#090C13]/70
+                  backdrop-blur-xl
+                  transition-colors
+                  duration-300
+                  hover:border-white/[0.14]
+                "
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFAQ(index)}
+                  aria-expanded={isOpen}
+                  className="
+                    flex
+                    w-full
+                    items-center
+                    justify-between
+                    gap-6
+                    px-6
+                    py-6
+                    text-left
+                    md:px-7
+                  "
+                >
+                  <span
+                    className={`
+                      text-base
+                      font-bold
+                      transition-colors
+                      duration-300
+                      md:text-lg
+                      ${
+                        isOpen
+                          ? "text-white"
+                          : "text-white/70"
+                      }
+                    `}
+                  >
+                    <T>{faq.question}</T>
+                  </span>
+
+                  <span
+                    className={`
+                      flex
+                      h-9
+                      w-9
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-lg
+                      border
+                      border-white/[0.08]
+                      bg-white/[0.03]
+                      text-xs
+                      text-white/40
+                      transition-all
+                      duration-300
+                      ${
+                        isOpen
+                          ? "rotate-45 border-purple-400/30 text-purple-400"
+                          : ""
+                      }
+                    `}
+                  >
+                    <FaPlus />
+                  </span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.25,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <div className="border-t border-white/[0.06] px-6 pb-6 pt-5 md:px-7">
+                        <p className="max-w-3xl text-sm leading-7 text-white/40 md:text-base">
+                          <T>{faq.answer}</T>
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </motion.div>
+
+        {/* BOTTOM */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.2,
+          }}
+          className="mt-10 text-center"
+        >
+          <p className="text-sm text-white/25"><T>Still have questions?</T></p>
+
+          <a
+            href="#"
+            className="
+              mt-2
+              inline-flex
+              text-sm
+              font-semibold
+              text-purple-400
+              transition-colors
+              duration-300
+              hover:text-green-400
+            "
+          ><T>Join the community →</T></a>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FaCoins,
+  FaChartPie,
+  FaLock,
+  FaCopy,
+  FaCheck,
+} from "react-icons/fa6";
+
+import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
+
+const allocations = [
+  {
+    label: "Liquidity",
+    value: "40%",
+    amount: "400M RCX",
+    description:
+      "Deep liquidity designed to provide a stable trading environment.",
+    icon: FaChartPie,
+  },
+  {
+    label: "Community",
+    value: "30%",
+    amount: "300M RCX",
+    description:
+      "Reserved for community growth, rewards and ecosystem incentives.",
+    icon: FaCoins,
+  },
+  {
+    label: "Marketing",
+    value: "15%",
+    amount: "150M RCX",
+    description:
+      "Used to expand the RACCOONX brand and reach new communities.",
+    icon: FaChartPie,
+  },
+  {
+    label: "Team",
+    value: "10%",
+    amount: "100M RCX",
+    description:
+      "Long-term allocation with a focus on sustainable development.",
+    icon: FaLock,
+  },
+  {
+    label: "CEX / Partnerships",
+    value: "5%",
+    amount: "50M RCX",
+    description:
+      "Reserved for future listings and strategic partnerships.",
+    icon: FaCoins,
+  },
+];
+
+export default function Tokenomics() {
+  const [copied, setCopied] = useState(false);
+
+  const copyContract = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        siteConfig.token.contract
+      );
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Failed to copy contract:", error);
+    }
+  };
+
+  return (
+    <section
+      id="tokenomics"
+      className="relative overflow-hidden px-6 py-32"
+    >
+      <div className="mx-auto max-w-7xl">
+
+        {/* HEADER */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="mx-auto max-w-3xl text-center"
+        >
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.35em] text-purple-400"><T>Token Economics</T></p>
+
+          <h2 className="text-5xl font-black tracking-tight text-white md:text-6xl"><T>Tokenomics</T></h2>
+
+          <p className="mt-6 text-lg leading-8 text-white/40"><T>A simple and transparent distribution designed to support the long-term RACCOONX ecosystem.</T></p>
+        </motion.div>
+
+        {/* TOKEN INFO */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.1,
+          }}
+          className="
+            mt-20
+            grid
+            gap-4
+            md:grid-cols-2
+            lg:grid-cols-4
+          "
+        >
+
+          {/* TOTAL SUPPLY */}
+
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/[0.07]
+              bg-white/[0.025]
+              p-7
+            "
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Total Supply</T></p>
+
+            <p className="mt-3 font-['Orbitron'] text-2xl font-black text-white">
+              {siteConfig.token.totalSupply}
+            </p>
+
+            <p className="mt-2 text-sm text-white/30">
+              {siteConfig.symbol}
+            </p>
+          </div>
+
+          {/* NETWORK */}
+
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/[0.07]
+              bg-white/[0.025]
+              p-7
+            "
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Network</T></p>
+
+            <p className="mt-3 font-['Orbitron'] text-2xl font-black text-purple-400">
+              {siteConfig.token.network.toUpperCase()}
+            </p>
+
+            <p className="mt-2 text-sm text-white/30"><T>Fast & low-cost transactions</T></p>
+          </div>
+
+          {/* TAX */}
+
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/[0.07]
+              bg-white/[0.025]
+              p-7
+            "
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Tax</T></p>
+
+            <p className="mt-3 font-['Orbitron'] text-2xl font-black text-green-400">
+              {siteConfig.token.tax}
+            </p>
+
+            <p className="mt-2 text-sm text-white/30"><T>No buy or sell tax</T></p>
+          </div>
+
+          {/* TOKEN */}
+
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/[0.07]
+              bg-white/[0.025]
+              p-7
+            "
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Token</T></p>
+
+            <p className="mt-3 font-['Orbitron'] text-2xl font-black text-white">
+              {siteConfig.symbol}
+            </p>
+
+            <p className="mt-2 text-sm text-white/30">
+              {siteConfig.name}
+            </p>
+          </div>
+
+        </motion.div>
+
+        {/* CONTRACT */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.15,
+          }}
+          className="
+            mt-6
+            rounded-2xl
+            border
+            border-white/[0.07]
+            bg-white/[0.025]
+            p-6
+            md:p-7
+          "
+        >
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Contract Address</T></p>
+
+              <p className="mt-2 text-xs text-white/30 md:text-sm">
+                Official {siteConfig.symbol} token contract on{" "}
+                {siteConfig.token.network}.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={copyContract}
+              className="
+                flex
+                items-center
+                justify-center
+                gap-3
+                rounded-xl
+                border
+                border-white/[0.08]
+                bg-white/[0.03]
+                px-5
+                py-3
+                text-sm
+                font-bold
+                text-white/60
+                transition-all
+                duration-300
+                hover:border-purple-400/30
+                hover:bg-white/[0.06]
+                hover:text-white
+              "
+            >
+              {copied ? (
+                <>
+                  <FaCheck className="text-green-400" /><T>Copied</T></>
+              ) : (
+                <>
+                  <FaCopy /><T>Copy Contract</T></>
+              )}
+            </button>
+
+          </div>
+
+          <div
+            className="
+              mt-5
+              overflow-hidden
+              rounded-xl
+              border
+              border-white/[0.06]
+              bg-black/30
+              px-4
+              py-4
+            "
+          >
+            <code className="block overflow-x-auto whitespace-nowrap text-xs text-white/40 md:text-sm">
+              {siteConfig.token.contract}
+            </code>
+          </div>
+        </motion.div>
+
+        {/* DISTRIBUTION */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.2,
+          }}
+          className="mt-20"
+        >
+
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/25"><T>Distribution</T></p>
+
+              <h3 className="mt-2 text-3xl font-black text-white"><T>Where the supply goes</T></h3>
+            </div>
+
+            <span className="hidden text-sm text-white/25 md:block"><T>100% allocated</T></span>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+
+            {allocations.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.08,
+                  }}
+                  className="
+                    group
+                    rounded-2xl
+                    border
+                    border-white/[0.07]
+                    bg-white/[0.02]
+                    p-7
+                    transition-all
+                    duration-300
+                    hover:border-white/[0.12]
+                    hover:bg-white/[0.035]
+                  "
+                >
+
+                  <div className="flex items-start justify-between">
+
+                    <div
+                      className="
+                        flex
+                        h-12
+                        w-12
+                        items-center
+                        justify-center
+                        rounded-xl
+                        border
+                        border-white/[0.07]
+                        bg-white/[0.03]
+                        text-purple-400
+                        transition-colors
+                        duration-300
+                        group-hover:text-green-400
+                      "
+                    >
+                      <Icon />
+                    </div>
+
+                    <span className="font-['Orbitron'] text-2xl font-black text-white">
+                      {item.value}
+                    </span>
+
+                  </div>
+
+                  <h4 className="mt-7 text-xl font-black text-white">
+                    <T>{item.label}</T>
+                  </h4>
+
+                  <p className="mt-2 font-['Orbitron'] text-xs font-bold tracking-[0.12em] text-purple-400">
+                    {item.amount}
+                  </p>
+
+                  <p className="mt-4 text-sm leading-7 text-white/35">
+                    <T>{item.description}</T>
+                  </p>
+
+                  <div className="mt-6 h-1 overflow-hidden rounded-full bg-white/[0.06]">
+                    <motion.div
+                      initial={{
+                        width: 0,
+                      }}
+                      whileInView={{
+                        width: item.value,
+                      }}
+                      viewport={{
+                        once: true,
+                      }}
+                      transition={{
+                        duration: 1,
+                        delay: 0.2 + index * 0.08,
+                        ease: "easeOut",
+                      }}
+                      className="
+                        h-full
+                        rounded-full
+                        bg-gradient-to-r
+                        from-purple-500
+                        to-green-400
+                      "
+                    />
+                  </div>
+
+                </motion.div>
+              );
+            })}
+
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}

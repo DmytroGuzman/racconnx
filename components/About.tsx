@@ -10,6 +10,7 @@ import {
 
 import type { IconType } from "react-icons";
 import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
 
 type Feature = {
   icon: IconType;
@@ -89,21 +90,13 @@ export default function About() {
         >
           <div className="text-center">
 
-            <div className="section-label justify-center">
-              THE ECOSYSTEM
-            </div>
+            <div className="section-label justify-center"><T>THE ECOSYSTEM</T></div>
 
             <h2 className="section-title">
-              <span className="gradient-text">
-                Why RACCOONX?
-              </span>
+              <span className="gradient-text"><T>Why RACCOONX?</T></span>
             </h2>
 
-            <p className="section-description">
-              RACCOONX isn't just another meme coin.
-              It's a cyberpunk brand built for speed, community,
-              and long-term growth inside the Solana ecosystem.
-            </p>
+            <p className="section-description"><T>RACCOONX isn't just another meme coin. It's a cyberpunk brand built for speed, community, and long-term growth inside the Solana ecosystem.</T></p>
 
           </div>
         </motion.div>
@@ -206,11 +199,11 @@ export default function About() {
                 <div className="mt-8">
 
                   <h3 className="text-2xl font-black tracking-tight">
-                    {feature.title}
+                    <T>{feature.title}</T>
                   </h3>
 
                   <p className="mt-4 text-[15px] leading-7 text-white/45">
-                    {feature.text}
+                    <T>{feature.text}</T>
                   </p>
 
                 </div>
@@ -274,9 +267,7 @@ export default function About() {
         >
 
           <div className="px-8 py-7 text-center sm:text-left">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35">
-              Network
-            </span>
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Network</T></span>
 
             <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white">
               {siteConfig.token.network}
@@ -294,9 +285,7 @@ export default function About() {
               sm:border-t-0
             "
           >
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35">
-              Transaction Tax
-            </span>
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Transaction Tax</T></span>
 
             <p className="mt-2 font-['Orbitron'] text-xl font-bold text-green-400">
               {siteConfig.token.tax}
@@ -314,13 +303,9 @@ export default function About() {
               sm:border-t-0
             "
           >
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35">
-              Community
-            </span>
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/35"><T>Community</T></span>
 
-            <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white">
-              Global
-            </p>
+            <p className="mt-2 font-['Orbitron'] text-xl font-bold text-white"><T>Global</T></p>
           </div>
 
         </motion.div>

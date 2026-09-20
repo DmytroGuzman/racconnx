@@ -5,7 +5,7 @@
 ================================ */
 
 :root {
-  --background: #05050a;
+  --background: #030407;
   --foreground: #ededed;
 }
 
@@ -15,19 +15,114 @@
 
 html {
   scroll-behavior: smooth;
+  background: #030407;
 }
 
 body {
   margin: 0;
   min-width: 0;
   width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
-  background: var(--background);
+  position: relative;
+  isolation: isolate;
+
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+
+  /*
+    RACCOONX background:
+    dark cyberpunk base + Solana purple/green ambient glows.
+  */
+  background:
+    radial-gradient(
+      ellipse 70% 48% at -5% 8%,
+      rgba(153, 69, 255, 0.18) 0%,
+      rgba(153, 69, 255, 0.07) 38%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 62% 46% at 105% 28%,
+      rgba(20, 241, 149, 0.12) 0%,
+      rgba(20, 241, 149, 0.045) 40%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 55% 38% at 45% 58%,
+      rgba(88, 80, 236, 0.075) 0%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 65% 42% at 88% 92%,
+      rgba(153, 69, 255, 0.09) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      180deg,
+      #030407 0%,
+      #05050b 38%,
+      #040509 68%,
+      #020305 100%
+    );
+
+  background-attachment: fixed;
+}
+
+/* Fine cyberpunk grid. It is intentionally subtle. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    );
+
+  background-size: 64px 64px;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.34) 58%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.34) 58%,
+    transparent 100%
+  );
+}
+
+/* Very light vignette so content stays the visual focus. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      transparent 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.18) 76%,
+      rgba(0, 0, 0, 0.36) 100%
+    );
 }
 
 /* Prevent accidental horizontal overflow */
+
 *,
 *::before,
 *::after {
@@ -65,9 +160,7 @@ canvas {
 
 .card-glow:hover {
   transform: translateY(-8px);
-
   border-color: rgba(153, 69, 255, 0.35);
-
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.45),
     0 0 30px rgba(153, 69, 255, 0.15);
@@ -80,6 +173,29 @@ canvas {
 .section-shell {
   position: relative;
   isolation: isolate;
+}
+
+/* Adds depth behind each section without covering the global background. */
+.section-shell::before {
+  content: "";
+  position: absolute;
+  width: min(900px, 76vw);
+  height: 420px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: -1;
+
+  background: radial-gradient(
+    ellipse,
+    rgba(153, 69, 255, 0.035) 0%,
+    rgba(20, 241, 149, 0.012) 42%,
+    transparent 72%
+  );
+
+  filter: blur(48px);
 }
 
 .section-container {
@@ -114,28 +230,29 @@ canvas {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  background: rgba(9, 12, 19, 0.72);
+  background: rgba(7, 9, 15, 0.70);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-
   transition:
     border-color 300ms ease,
     background 300ms ease,
-    transform 300ms ease;
+    transform 300ms ease,
+    box-shadow 300ms ease;
 }
 
 .section-card:hover {
   border-color: rgba(153, 69, 255, 0.25);
-  background: rgba(12, 15, 24, 0.82);
+  background: rgba(11, 14, 22, 0.82);
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.28),
+    0 0 36px rgba(153, 69, 255, 0.055);
 }
 
 .section-label {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-
   color: #14f195;
-
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.28em;
@@ -144,18 +261,14 @@ canvas {
 
 .section-label::before {
   content: "";
-
   width: 28px;
   height: 1px;
-
   background: #14f195;
-
   box-shadow: 0 0 10px rgba(20, 241, 149, 0.7);
 }
 
 .section-title {
   margin-top: 16px;
-
   font-family: "Orbitron", sans-serif;
   font-size: clamp(40px, 5vw, 64px);
   font-weight: 900;
@@ -166,9 +279,7 @@ canvas {
 .section-description {
   max-width: 680px;
   margin: 20px auto 0;
-
   color: rgba(255, 255, 255, 0.48);
-
   font-size: 18px;
   line-height: 1.8;
 }
@@ -178,6 +289,15 @@ canvas {
 ================================ */
 
 @media (max-width: 640px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before {
+    background-size: 44px 44px;
+    opacity: 0.72;
+  }
+
   .section-container {
     padding-left: 18px;
     padding-right: 18px;
@@ -189,5 +309,22 @@ canvas {
 
   .section-description {
     font-size: 16px;
+  }
+
+  .section-shell::before {
+    width: 92vw;
+    height: 320px;
+  }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card-glow,
+  .section-card {
+    transition: none;
   }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import VisitorTracker from "@/components/VisitorTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://raccoonx.xyz"),
 
   title: {
-    default: "RACCOONX — Stealing Profits. Not Trash.",
+    default: "RACCOONX — No Trash. Just Gains.",
     template: "%s | RACCOONX",
   },
 
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://raccoonx.xyz",
     siteName: "RACCOONX",
-    title: "RACCOONX — Stealing Profits. Not Trash.",
+    title: "RACCOONX — No Trash. Just Gains.",
     description:
       "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
     images: [
@@ -51,14 +52,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "RACCOONX — Stealing Profits. Not Trash.",
+        alt: "RACCOONX — No Trash. Just Gains.",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "RACCOONX — Stealing Profits. Not Trash.",
+    title: "RACCOONX — No Trash. Just Gains.",
     description:
       "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
     images: ["/og-image.png"],
@@ -84,7 +85,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <VisitorTracker />
+        {children}
+      </body>
     </html>
   );
 }

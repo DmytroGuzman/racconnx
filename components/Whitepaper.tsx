@@ -7,6 +7,7 @@ import {
   FaDownload,
 } from "react-icons/fa6";
 import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
 
 export default function Whitepaper() {
   return (
@@ -36,20 +37,13 @@ export default function Whitepaper() {
           }}
           className="text-center"
         >
-          <div className="section-label justify-center">
-            WHITEPAPER
-          </div>
+          <div className="section-label justify-center"><T>WHITEPAPER</T></div>
 
           <h2 className="section-title">
-            <span className="gradient-text">
-              The Vision Behind RACCOONX
-            </span>
+            <span className="gradient-text"><T>The Vision Behind RACCOONX</T></span>
           </h2>
 
-          <p className="section-description">
-            Learn more about the idea, tokenomics, roadmap and long-term
-            direction of the RACCOONX ecosystem.
-          </p>
+          <p className="section-description"><T>Learn more about the idea, tokenomics, roadmap and long-term direction of the RACCOONX ecosystem.</T></p>
         </motion.div>
 
         {/* WHITEPAPER CARD */}
@@ -132,15 +126,9 @@ export default function Whitepaper() {
                 <FaFileLines />
               </div>
 
-              <h3 className="mt-8 max-w-2xl text-3xl font-black tracking-tight md:text-4xl">
-                Everything you need to know about RACCOONX.
-              </h3>
+              <h3 className="mt-8 max-w-2xl text-3xl font-black tracking-tight md:text-4xl"><T>Everything you need to know about RACCOONX.</T></h3>
 
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/40">
-                Our whitepaper explains the foundation of the project,
-                token distribution, roadmap, community strategy and
-                the future direction of the RACCOONX ecosystem.
-              </p>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/40"><T>Our whitepaper explains the foundation of the project, token distribution, roadmap, community strategy and the future direction of the RACCOONX ecosystem.</T></p>
 
               {/* BUTTONS */}
 
@@ -168,11 +156,7 @@ export default function Whitepaper() {
                     hover:bg-gray-100
                   "
                 >
-                  <FaDownload />
-
-                  Download Whitepaper
-
-                  <FaArrowRight
+                  <FaDownload /><T>Download Whitepaper</T><FaArrowRight
                     className="
                       transition-transform
                       duration-300
@@ -203,9 +187,7 @@ export default function Whitepaper() {
                     hover:bg-white/[0.06]
                     hover:text-white
                   "
-                >
-                  Explore Roadmap
-                </a>
+                ><T>Explore Roadmap</T></a>
 
               </div>
 
@@ -270,9 +252,7 @@ export default function Whitepaper() {
 
                 <div className="flex items-center justify-between">
 
-                  <span className="font-['Orbitron'] text-xs font-bold tracking-wider text-purple-400">
-                    RCX
-                  </span>
+                  <span className="font-['Orbitron'] text-xs font-bold tracking-wider text-purple-400"><T>RCX</T></span>
 
                   <span className="text-[10px] text-white/25">
                     2026

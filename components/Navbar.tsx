@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { siteConfig } from "../config/siteConfig";
+import LanguageSwitcher from "./i18n/LanguageSwitcher";
+import { T } from "./i18n/LanguageProvider";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -90,10 +92,13 @@ export default function Navbar() {
                 hover:text-white
               "
             >
-              {link.label}
+              <T>{link.label}</T>
             </a>
           ))}
         </div>
+
+        {/* LANGUAGE */}
+        <div className="hidden md:block"><LanguageSwitcher /></div>
 
         {/* BUY BUTTON */}
 
@@ -115,7 +120,7 @@ export default function Navbar() {
             md:block
           "
         >
-          Buy RCX
+          <T>Buy RCX</T>
         </a>
 
         {/* MOBILE BUTTON */}
@@ -196,9 +201,11 @@ export default function Navbar() {
                     hover:text-white
                   "
                 >
-                  {link.label}
+                  <T>{link.label}</T>
                 </a>
               ))}
+
+              <div className="mt-2 px-1"><LanguageSwitcher /></div>
 
               <a
                 href={siteConfig.links.buy}
@@ -218,7 +225,7 @@ export default function Navbar() {
                   hover:scale-[1.01]
                 "
               >
-                Buy RCX
+                <T>Buy RCX</T>
               </a>
             </div>
           </motion.div>

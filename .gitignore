@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local archives / debug files
+*.zip
+*.rar
+*-debug.txt
+last-debug.txt
+README-SECURITY.txt
+CHECK-PURCHASE-CONSTRAINT.sql

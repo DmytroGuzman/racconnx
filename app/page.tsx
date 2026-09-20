@@ -8,14 +8,18 @@ import Whitepaper from "@/components/Whitepaper";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import SectionDivider from "@/components/SectionDivider";
+import BuyRCX from "@/components/BuyRCX";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-black">
+    <LanguageProvider>
+    <main className="relative min-h-screen w-full overflow-x-hidden">
       <Navbar />
       <Particles />
 
       <Hero />
+      <BuyRCX />
 
       <SectionDivider />
 
@@ -39,5 +43,6 @@ export default function Home() {
 
       <Footer />
     </main>
+    </LanguageProvider>
   );
 }

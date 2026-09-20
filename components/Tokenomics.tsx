@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa6";
 
 import { siteConfig } from "../config/siteConfig";
+import { T, useLanguage } from "./i18n/LanguageProvider";
 
 const allocations = [
   {
@@ -57,6 +58,7 @@ const allocations = [
 
 export default function Tokenomics() {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
 
   const copyContract = async () => {
     try {
@@ -100,18 +102,11 @@ export default function Tokenomics() {
           }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.35em] text-purple-400">
-            Token Economics
-          </p>
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.35em] text-purple-400"><T>Token Economics</T></p>
 
-          <h2 className="text-5xl font-black tracking-tight text-white md:text-6xl">
-            Tokenomics
-          </h2>
+          <h2 className="text-5xl font-black tracking-tight text-white md:text-6xl"><T>Tokenomics</T></h2>
 
-          <p className="mt-6 text-lg leading-8 text-white/40">
-            A simple and transparent distribution designed to
-            support the long-term RACCOONX ecosystem.
-          </p>
+          <p className="mt-6 text-lg leading-8 text-white/40"><T>A simple and transparent distribution designed to support the long-term RACCOONX ecosystem.</T></p>
         </motion.div>
 
         {/* TOKEN INFO */}
@@ -152,9 +147,7 @@ export default function Tokenomics() {
               p-7
             "
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
-              Total Supply
-            </p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Total Supply</T></p>
 
             <p className="mt-3 font-['Orbitron'] text-2xl font-black text-white">
               {siteConfig.token.totalSupply}
@@ -176,17 +169,13 @@ export default function Tokenomics() {
               p-7
             "
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
-              Network
-            </p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Network</T></p>
 
             <p className="mt-3 font-['Orbitron'] text-2xl font-black text-purple-400">
               {siteConfig.token.network.toUpperCase()}
             </p>
 
-            <p className="mt-2 text-sm text-white/30">
-              Fast & low-cost transactions
-            </p>
+            <p className="mt-2 text-sm text-white/30"><T>Fast & low-cost transactions</T></p>
           </div>
 
           {/* TAX */}
@@ -200,17 +189,13 @@ export default function Tokenomics() {
               p-7
             "
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
-              Tax
-            </p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Tax</T></p>
 
             <p className="mt-3 font-['Orbitron'] text-2xl font-black text-green-400">
               {siteConfig.token.tax}
             </p>
 
-            <p className="mt-2 text-sm text-white/30">
-              No buy or sell tax
-            </p>
+            <p className="mt-2 text-sm text-white/30"><T>No buy or sell tax</T></p>
           </div>
 
           {/* TOKEN */}
@@ -224,9 +209,7 @@ export default function Tokenomics() {
               p-7
             "
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
-              Token
-            </p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Token</T></p>
 
             <p className="mt-3 font-['Orbitron'] text-2xl font-black text-white">
               {siteConfig.symbol}
@@ -270,13 +253,10 @@ export default function Tokenomics() {
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
-                Contract Address
-              </p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30"><T>Contract Address</T></p>
 
               <p className="mt-2 text-xs text-white/30 md:text-sm">
-                Official {siteConfig.symbol} token contract on{" "}
-                {siteConfig.token.network}.
+                {t("Official RCX token contract on Solana.")}
               </p>
             </div>
 
@@ -306,14 +286,10 @@ export default function Tokenomics() {
             >
               {copied ? (
                 <>
-                  <FaCheck className="text-green-400" />
-                  Copied
-                </>
+                  <FaCheck className="text-green-400" /><T>Copied</T></>
               ) : (
                 <>
-                  <FaCopy />
-                  Copy Contract
-                </>
+                  <FaCopy /><T>Copy Contract</T></>
               )}
             </button>
 
@@ -360,18 +336,12 @@ export default function Tokenomics() {
 
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/25">
-                Distribution
-              </p>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/25"><T>Distribution</T></p>
 
-              <h3 className="mt-2 text-3xl font-black text-white">
-                Where the supply goes
-              </h3>
+              <h3 className="mt-2 text-3xl font-black text-white"><T>Where the supply goes</T></h3>
             </div>
 
-            <span className="hidden text-sm text-white/25 md:block">
-              100% allocated
-            </span>
+            <span className="hidden text-sm text-white/25 md:block"><T>100% allocated</T></span>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -440,7 +410,7 @@ export default function Tokenomics() {
                   </div>
 
                   <h4 className="mt-7 text-xl font-black text-white">
-                    {item.label}
+                    <T>{item.label}</T>
                   </h4>
 
                   <p className="mt-2 font-['Orbitron'] text-xs font-bold tracking-[0.12em] text-purple-400">
@@ -448,7 +418,7 @@ export default function Tokenomics() {
                   </p>
 
                   <p className="mt-4 text-sm leading-7 text-white/35">
-                    {item.description}
+                    <T>{item.description}</T>
                   </p>
 
                   <div className="mt-6 h-1 overflow-hidden rounded-full bg-white/[0.06]">

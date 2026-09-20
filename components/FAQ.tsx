@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus } from "react-icons/fa6";
+import { T } from "./i18n/LanguageProvider";
 
 type FAQItem = {
   question: string;
@@ -78,20 +79,13 @@ export default function FAQ() {
           }}
           className="text-center"
         >
-          <div className="section-label justify-center">
-            FAQ
-          </div>
+          <div className="section-label justify-center"><T>FAQ</T></div>
 
           <h2 className="section-title">
-            <span className="gradient-text">
-              Frequently Asked
-            </span>
+            <span className="gradient-text"><T>Frequently Asked</T></span>
           </h2>
 
-          <p className="section-description">
-            Everything you need to know about RACCOONX,
-            the token and the ecosystem.
-          </p>
+          <p className="section-description"><T>Everything you need to know about RACCOONX, the token and the ecosystem.</T></p>
         </motion.div>
 
         {/* FAQ LIST */}
@@ -163,7 +157,7 @@ export default function FAQ() {
                       }
                     `}
                   >
-                    {faq.question}
+                    <T>{faq.question}</T>
                   </span>
 
                   <span
@@ -215,7 +209,7 @@ export default function FAQ() {
                     >
                       <div className="border-t border-white/[0.06] px-6 pb-6 pt-5 md:px-7">
                         <p className="max-w-3xl text-sm leading-7 text-white/40 md:text-base">
-                          {faq.answer}
+                          <T>{faq.answer}</T>
                         </p>
                       </div>
                     </motion.div>
@@ -244,9 +238,7 @@ export default function FAQ() {
           }}
           className="mt-10 text-center"
         >
-          <p className="text-sm text-white/25">
-            Still have questions?
-          </p>
+          <p className="text-sm text-white/25"><T>Still have questions?</T></p>
 
           <a
             href="#"
@@ -260,9 +252,7 @@ export default function FAQ() {
               duration-300
               hover:text-green-400
             "
-          >
-            Join the community →
-          </a>
+          ><T>Join the community →</T></a>
         </motion.div>
 
       </div>

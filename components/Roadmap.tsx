@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import type { IconType } from "react-icons";
+import { T } from "./i18n/LanguageProvider";
 
 type RoadmapPhase = {
   phase: string;
@@ -106,20 +107,13 @@ export default function Roadmap() {
           }}
           className="text-center"
         >
-          <div className="section-label justify-center">
-            ROADMAP
-          </div>
+          <div className="section-label justify-center"><T>ROADMAP</T></div>
 
           <h2 className="section-title">
-            <span className="gradient-text">
-              The Journey
-            </span>
+            <span className="gradient-text"><T>The Journey</T></span>
           </h2>
 
-          <p className="section-description">
-            A long-term roadmap focused on building a strong community,
-            expanding the ecosystem and creating sustainable growth.
-          </p>
+          <p className="section-description"><T>A long-term roadmap focused on building a strong community, expanding the ecosystem and creating sustainable growth.</T></p>
         </motion.div>
 
         {/* ROADMAP */}
@@ -238,7 +232,7 @@ export default function Roadmap() {
                           </span>
 
                           <h3 className="mt-2 text-3xl font-black">
-                            {phase.title}
+                            <T>{phase.title}</T>
                           </h3>
 
                         </div>
@@ -269,7 +263,7 @@ export default function Roadmap() {
                       {/* DESCRIPTION */}
 
                       <p className="mt-6 text-sm leading-7 text-white/40">
-                        {phase.description}
+                        <T>{phase.description}</T>
                       </p>
 
                       {/* ITEMS */}
@@ -366,9 +360,7 @@ export default function Roadmap() {
             text-white/30
           "
         >
-          <span>
-            Roadmap milestones may evolve as the RACCOONX community grows.
-          </span>
+          <span><T>Roadmap milestones may evolve as the RACCOONX community grows.</T></span>
         </motion.div>
 
       </div>

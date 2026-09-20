@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import StatsCard from "./StatsCard";
 import { siteConfig } from "../config/siteConfig";
+import { T } from "./i18n/LanguageProvider";
 
 export default function Hero() {
   return (
@@ -18,9 +19,7 @@ export default function Hero() {
             className="w-full"
           >
             {/* BADGE */}
-            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-purple-500/30 bg-white/5 px-4 py-2 text-xs text-gray-300 backdrop-blur-xl sm:px-5 sm:text-sm">
-              🦝 Cyberpunk Meme Coin • Solana
-            </span>
+            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-purple-500/30 bg-white/5 px-4 py-2 text-xs text-gray-300 backdrop-blur-xl sm:px-5 sm:text-sm"><T>🦝 Cyberpunk Meme Coin • Solana</T></span>
 
             {/* TITLE */}
            <h1 className="mt-8 w-full">
@@ -37,23 +36,22 @@ export default function Hero() {
       tracking-[-0.05em]
       text-transparent
     "
-  >
-    RACCOONX
-  </span>
+  ><T>RACCOONX</T></span>
 </h1>
 
             {/* SLOGAN */}
-            <p className="mt-6 text-2xl font-bold sm:text-3xl">
-              Stealing Profits.
-              <br />
-              Not Trash.
-            </p>
+            <div className="mt-6 font-black uppercase italic leading-[0.95] tracking-[-0.04em]">
+  <div className="text-3xl text-white sm:text-4xl lg:text-5xl">
+    <T>No Trash.</T>
+  </div>
+
+  <div className="mt-2 bg-gradient-to-r from-purple-500 via-violet-400 to-emerald-400 bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">
+    <T>Just Gains.</T>
+  </div>
+</div>
 
             {/* DESCRIPTION */}
-            <p className="mt-8 max-w-xl text-base leading-7 text-gray-400 sm:text-lg sm:leading-8">
-              The next generation Solana meme coin combining community, speed
-              and cyberpunk aesthetics.
-            </p>
+            <p className="mt-8 max-w-xl text-base leading-7 text-gray-400 sm:text-lg sm:leading-8"><T>The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.</T></p>
 
            {/* BUTTONS */}
 <div className="mt-10 flex flex-wrap gap-4 sm:gap-5">
@@ -62,16 +60,12 @@ export default function Hero() {
     target="_blank"
     rel="noopener noreferrer"
     className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500 to-green-400 px-6 py-3.5 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(153,69,255,.55)] sm:px-8 sm:py-4"
-  >
-    Buy RCX
-  </a>
+  ><T>Buy RCX</T></a>
 
   <a
     href={siteConfig.links.whitepaper}
     className="rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 font-bold backdrop-blur-xl transition hover:bg-white/10 sm:px-8 sm:py-4"
-  >
-    Whitepaper
-  </a>
+  ><T>Whitepaper</T></a>
 </div>
             {/* STATS */}
           <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">

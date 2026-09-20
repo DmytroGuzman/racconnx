@@ -21,7 +21,7 @@ export const siteConfig = {
     discord: "#",
 
     // Trading
-    buy: "#",
+    buy: "#buy",
     dexScreener: "#",
     jupiter: "#",
 
@@ -30,6 +30,11 @@ export const siteConfig = {
   },
 
   navigation: [
+{
+  label: "Buy",
+  href: "#buy",
+},
+
     {
       label: "About",
       href: "#about",
