@@ -37,6 +37,40 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
+  // Smooth scroll without adding #section to the URL
+  const scrollToSection = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (!href.startsWith("#")) {
+      return;
+    }
+
+    event.preventDefault();
+
+    // Logo / href="#"
+    if (href === "#") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      setMenuOpen(false);
+      return;
+    }
+
+    const element = document.querySelector(href);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+
+    setMenuOpen(false);
+  };
+
   return (
     <motion.header
       initial={{ y: -80 }}
@@ -69,7 +103,7 @@ export default function Navbar() {
 
         <a
           href="#"
-          onClick={closeMenu}
+          onClick={(event) => scrollToSection(event, "#")}
           className="font-['Orbitron'] text-xl font-black tracking-[0.08em] md:text-2xl"
         >
           <span className="text-white">RACCOON</span>
@@ -83,6 +117,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(event) => scrollToSection(event, link.href)}
               className="
                 text-sm
                 font-medium
@@ -98,12 +133,16 @@ export default function Navbar() {
         </div>
 
         {/* LANGUAGE */}
-        <div className="hidden md:block"><LanguageSwitcher /></div>
+
+        <div className="hidden md:block">
+          <LanguageSwitcher />
+        </div>
 
         {/* BUY BUTTON */}
 
         <a
           href={siteConfig.links.buy}
+          onClick={(event) => scrollToSection(event, siteConfig.links.buy)}
           className="
             hidden
             rounded-xl
@@ -188,7 +227,9 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={closeMenu}
+                  onClick={(event) =>
+                    scrollToSection(event, link.href)
+                  }
                   className="
                     rounded-xl
                     px-4
@@ -205,11 +246,15 @@ export default function Navbar() {
                 </a>
               ))}
 
-              <div className="mt-2 px-1"><LanguageSwitcher /></div>
+              <div className="mt-2 px-1">
+                <LanguageSwitcher />
+              </div>
 
               <a
                 href={siteConfig.links.buy}
-                onClick={closeMenu}
+                onClick={(event) =>
+                  scrollToSection(event, siteConfig.links.buy)
+                }
                 className="
                   mt-2
                   rounded-xl
