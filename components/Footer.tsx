@@ -228,9 +228,34 @@ export default function Footer() {
             <T>All rights reserved.</T>
           </p>
 
-          <p>
-            <T>Built on</T> {siteConfig.token.network}.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+  <a
+    href="/terms"
+    className="transition-colors hover:text-white"
+  >
+    Terms of Use
+  </a>
+
+  <a
+    href="/privacy"
+    className="transition-colors hover:text-white"
+  >
+    Privacy Policy
+  </a>
+
+  <a
+    href="/risk"
+    className="transition-colors hover:text-red-300"
+  >
+    Risk Disclaimer
+  </a>
+
+  <span className="hidden text-white/10 sm:inline">•</span>
+
+  <span>
+    <T>Built on</T> {siteConfig.token.network}.
+  </span>
+</div>
         </div>
       </div>
 
