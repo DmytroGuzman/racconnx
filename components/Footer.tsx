@@ -80,7 +80,7 @@ export default function Footer() {
               "
             >
               <span className="text-white">
-                <T>RACCOON</T>
+                <T>Raccoon</T>
               </span>
 
               <span className="text-purple-400">

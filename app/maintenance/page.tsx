@@ -5,7 +5,7 @@ import MaintenanceWatcher from "@/components/MaintenanceWatcher";
 export const dynamic = "force-dynamic";
 
 export default async function MaintenancePage() {
-  let message = "We're upgrading RACCOONX. We'll be back soon.";
+  let message = "We're upgrading RaccoonX. We'll be back soon.";
 
   try {
     const url = process.env.DATABASE_URL;
@@ -39,7 +39,7 @@ export default async function MaintenancePage() {
         </div>
 
         <h1 className="mt-8 text-5xl font-black tracking-[-0.05em] sm:text-7xl">
-          RACCOON<span className="text-purple-400">X</span>
+          Raccoon<span className="text-purple-400">X</span>
         </h1>
 
         <p className="mt-5 text-2xl font-black uppercase tracking-tight sm:text-3xl">

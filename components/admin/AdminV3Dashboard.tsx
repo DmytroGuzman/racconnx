@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -115,7 +115,7 @@ export default function AdminV3Dashboard() {
       <div className="flex flex-col justify-between gap-5 xl:flex-row xl:items-end">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.24em] text-green-400">
-            RACCOONX CONTROL CENTER
+            RaccoonX CONTROL CENTER
           </p>
           <h1 className="mt-2 text-3xl font-black">Overview</h1>
           <p className="mt-2 text-white/40">

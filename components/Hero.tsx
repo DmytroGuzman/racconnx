@@ -36,7 +36,7 @@ export default function Hero() {
       tracking-[-0.05em]
       text-transparent
     "
-  ><T>RACCOONX</T></span>
+  ><T>RaccoonX</T></span>
 </h1>
 
             {/* SLOGAN */}

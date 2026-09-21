@@ -343,7 +343,7 @@ export async function POST(
       return NextResponse.json(
         {
           ok: false,
-          error: "RACCOONX is currently under maintenance.",
+          error: "RaccoonX is currently under maintenance.",
         },
         {
           status: 503,

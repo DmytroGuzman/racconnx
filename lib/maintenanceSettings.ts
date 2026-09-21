@@ -7,7 +7,7 @@ export type MaintenanceSettings = {
 };
 
 const DEFAULT_MESSAGE =
-  "We're upgrading RACCOONX. We'll be back soon.";
+  "We're upgrading RaccoonX. We'll be back soon.";
 
 export async function ensureMaintenanceSettings(
   sql: NeonQueryFunction<false, false>
@@ -16,7 +16,7 @@ export async function ensureMaintenanceSettings(
     CREATE TABLE IF NOT EXISTS maintenance_settings (
       id SMALLINT PRIMARY KEY CHECK (id = 1),
       enabled BOOLEAN NOT NULL DEFAULT FALSE,
-      message TEXT NOT NULL DEFAULT 'We''re upgrading RACCOONX. We''ll be back soon.',
+      message TEXT NOT NULL DEFAULT 'We''re upgrading RaccoonX. We''ll be back soon.',
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;

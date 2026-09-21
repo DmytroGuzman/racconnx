@@ -127,27 +127,36 @@ export default function Navbar() {
         `}
       >
         {/* LOGO */}
-
-        <a
-          href="#"
-          onClick={(event) =>
-            scrollToSection(event, "#")
-          }
-          className="
-            font-['Orbitron']
-            text-xl font-black
-            tracking-[0.08em]
-            md:text-2xl
-          "
-        >
-          <span className="text-white">
-            RACCOON
-          </span>
-
-          <span className="text-purple-400">
-            X
-          </span>
-        </a>
+<a
+  href="#"
+  onClick={closeMenu}
+  className="
+    group
+    inline-flex
+    items-center
+    transition-transform
+    duration-300
+    hover:scale-[1.04]
+  "
+>
+  <span
+    className="
+      block
+      bg-gradient-to-r
+      from-purple-500
+      to-green-400
+      bg-clip-text
+      text-[30px]
+      font-black
+      leading-none
+      tracking-[-0.05em]
+      text-transparent
+      md:text-[36px]
+    "
+  >
+    <T>RaccoonX</T>
+  </span>
+</a>
 
         {/* DESKTOP NAVIGATION */}
 

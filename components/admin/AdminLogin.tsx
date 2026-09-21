@@ -45,13 +45,13 @@ export default function AdminLogin() {
           className="w-full rounded-[28px] border border-white/10 bg-white/[0.04] p-8 shadow-2xl backdrop-blur-xl"
         >
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-green-400">
-            RACCOONX
+            RaccoonX
           </p>
 
           <h1 className="mt-3 text-3xl font-black">Admin Panel</h1>
 
           <p className="mt-2 text-sm text-white/40">
-            Увійди, щоб керувати RACCOONX.
+            Увійди, щоб керувати RaccoonX.
           </p>
 
           <label className="mt-8 block text-xs font-bold uppercase tracking-[0.18em] text-white/40">

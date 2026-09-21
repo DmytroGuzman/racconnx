@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy | RACCOONX",
-  description: "Privacy Policy for RACCOONX.",
+  title: "Privacy Policy | RaccoonX",
+  description: "Privacy Policy for RaccoonX.",
 };
 
 export default function PrivacyPage() {
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
           href="/"
           className="text-sm font-bold text-purple-400 transition hover:text-purple-300"
         >
-          ← Back to RACCOONX
+          ← Back to RaccoonX
         </Link>
 
         <div className="mt-10">
@@ -33,12 +33,12 @@ export default function PrivacyPage() {
         <div className="mt-12 space-y-10 text-sm leading-7 text-white/55 sm:text-base">
           <Section title="1. Overview">
             This Privacy Policy explains how information may be collected,
-            processed, and stored when you access or interact with the RACCOONX
+            processed, and stored when you access or interact with the RaccoonX
             website and RCX token sale.
           </Section>
 
           <Section title="2. Information We May Process">
-            Depending on how you use the website, RACCOONX may process
+            Depending on how you use the website, RaccoonX may process
             technical information required for security and analytics, wallet
             addresses used in token purchases, blockchain transaction
             signatures, transaction amounts, purchase status, and related
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
             Public blockchain networks such as Solana are transparent by
             design. Wallet addresses and blockchain transactions may be
             publicly visible and permanently recorded independently of
-            RACCOONX.
+            RaccoonX.
           </Section>
 
           <Section title="4. Analytics and Security">
@@ -61,9 +61,9 @@ export default function PrivacyPage() {
 
           <Section title="5. Wallet Connections">
             Connecting a supported wallet allows the website to interact with
-            the public wallet address exposed by the wallet provider. RACCOONX
+            the public wallet address exposed by the wallet provider. RaccoonX
             does not need your seed phrase or private key and you should never
-            provide them to anyone claiming to represent RACCOONX.
+            provide them to anyone claiming to represent RaccoonX.
           </Section>
 
           <Section title="6. How Information Is Used">
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
           </Section>
 
           <Section title="7. Service Providers">
-            RACCOONX may rely on infrastructure and service providers for
+            RaccoonX may rely on infrastructure and service providers for
             hosting, databases, blockchain connectivity, wallet interaction,
             and other technical functionality. Such providers may process
             limited information as necessary to provide their services.
@@ -85,7 +85,7 @@ export default function PrivacyPage() {
             reasonably necessary for security, fraud prevention, transaction
             verification, dispute handling, technical operations, or legal
             obligations. Information recorded on a public blockchain cannot
-            generally be deleted by RACCOONX.
+            generally be deleted by RaccoonX.
           </Section>
 
           <Section title="9. Security">

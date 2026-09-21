@@ -12,34 +12,34 @@ type FAQItem = {
 
 const faqs: FAQItem[] = [
   {
-    question: "What is RACCOONX?",
+    question: "What is RaccoonX?",
     answer:
-      "RACCOONX is a community-driven meme token built on the Solana network, combining cyberpunk aesthetics with a strong focus on community, growth and long-term development.",
+      "RaccoonX is a community-driven meme token built on the Solana network, combining cyberpunk aesthetics with a strong focus on community, growth and long-term development.",
   },
   {
-    question: "What is the RACCOONX token?",
+    question: "What is the RaccoonX token?",
     answer:
-      "RACCOONX, represented by the ticker RCX, is the native token of the ecosystem. The total supply is fixed at 1,000,000,000 RCX.",
+      "RaccoonX, represented by the ticker RCX, is the native token of the ecosystem. The total supply is fixed at 1,000,000,000 RCX.",
   },
   {
-    question: "Why is RACCOONX built on Solana?",
+    question: "Why is RaccoonX built on Solana?",
     answer:
       "Solana provides fast transactions and low network fees, making it a natural fit for a community-focused token designed for frequent interaction and broad accessibility.",
   },
   {
     question: "Where can I buy RCX?",
     answer:
-      "Trading availability will be announced through the official RACCOONX channels as liquidity and exchange listings become available.",
+      "Trading availability will be announced through the official RaccoonX channels as liquidity and exchange listings become available.",
   },
   {
     question: "Is there a transaction tax?",
     answer:
-      "RACCOONX is designed with a 0% transaction tax. Always verify the official contract address through our verified channels before making a purchase.",
+      "RaccoonX is designed with a 0% transaction tax. Always verify the official contract address through our verified channels before making a purchase.",
   },
   {
     question: "How can I become part of the community?",
     answer:
-      "Follow the official RACCOONX social channels, join the community and participate in discussions, campaigns and future ecosystem initiatives.",
+      "Follow the official RaccoonX social channels, join the community and participate in discussions, campaigns and future ecosystem initiatives.",
   },
 ];
 
@@ -85,7 +85,7 @@ export default function FAQ() {
             <span className="gradient-text"><T>Frequently Asked</T></span>
           </h2>
 
-          <p className="section-description"><T>Everything you need to know about RACCOONX, the token and the ecosystem.</T></p>
+          <p className="section-description"><T>Everything you need to know about RaccoonX, the token and the ecosystem.</T></p>
         </motion.div>
 
         {/* FAQ LIST */}

@@ -40,10 +40,10 @@ export default function Whitepaper() {
           <div className="section-label justify-center"><T>WHITEPAPER</T></div>
 
           <h2 className="section-title">
-            <span className="gradient-text"><T>The Vision Behind RACCOONX</T></span>
+            <span className="gradient-text"><T>The Vision Behind RaccoonX</T></span>
           </h2>
 
-          <p className="section-description"><T>Learn more about the idea, tokenomics, roadmap and long-term direction of the RACCOONX ecosystem.</T></p>
+          <p className="section-description"><T>Learn more about the idea, tokenomics, roadmap and long-term direction of the RaccoonX ecosystem.</T></p>
         </motion.div>
 
         {/* WHITEPAPER CARD */}
@@ -126,9 +126,9 @@ export default function Whitepaper() {
                 <FaFileLines />
               </div>
 
-              <h3 className="mt-8 max-w-2xl text-3xl font-black tracking-tight md:text-4xl"><T>Everything you need to know about RACCOONX.</T></h3>
+              <h3 className="mt-8 max-w-2xl text-3xl font-black tracking-tight md:text-4xl"><T>Everything you need to know about RaccoonX.</T></h3>
 
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/40"><T>Our whitepaper explains the foundation of the project, token distribution, roadmap, community strategy and the future direction of the RACCOONX ecosystem.</T></p>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/40"><T>Our whitepaper explains the foundation of the project, token distribution, roadmap, community strategy and the future direction of the RaccoonX ecosystem.</T></p>
 
               {/* BUTTONS */}
 

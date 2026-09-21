@@ -27,7 +27,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
       <div className="mx-auto flex min-h-screen max-w-[1600px]">
         <aside className="hidden w-64 shrink-0 border-r border-white/10 bg-black/20 p-5 lg:block">
           <div className="px-3 py-4">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-green-400">RACCOONX</p>
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-green-400">RaccoonX</p>
             <p className="mt-2 text-lg font-black">Admin Panel</p>
           </div>
 
@@ -60,7 +60,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         <div className="min-w-0 flex-1">
           <header className="border-b border-white/10 bg-black/20 px-5 py-4 backdrop-blur-xl lg:hidden">
             <div className="flex items-center justify-between">
-              <Link href="/admin" className="font-black">RACCOONX Admin</Link>
+              <Link href="/admin" className="font-black">RaccoonX Admin</Link>
               <button onClick={logout} className="text-sm text-white/50">Logout</button>
             </div>
             <div className="mt-4 flex gap-2 overflow-x-auto">

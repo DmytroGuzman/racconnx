@@ -4,7 +4,7 @@ export const dynamic = "force-static";
 
 export function GET() {
   return NextResponse.json({
-    name: "RACCOONX",
+    name: "RaccoonX",
     symbol: "RCX",
     network: "Solana",
     website: "https://raccoonx.xyz",

@@ -27,7 +27,7 @@ const features: Feature[] = [
   {
     icon: FaUsers,
     title: "Community Driven",
-    text: "Every holder helps shape the future of the RACCOONX ecosystem.",
+    text: "Every holder helps shape the future of the RaccoonX ecosystem.",
   },
   {
     icon: FaBolt,
@@ -93,10 +93,10 @@ export default function About() {
             <div className="section-label justify-center"><T>THE ECOSYSTEM</T></div>
 
             <h2 className="section-title">
-              <span className="gradient-text"><T>Why RACCOONX?</T></span>
+              <span className="gradient-text"><T>Why RaccoonX?</T></span>
             </h2>
 
-            <p className="section-description"><T>RACCOONX isn't just another meme coin. It's a cyberpunk brand built for speed, community, and long-term growth inside the Solana ecosystem.</T></p>
+            <p className="section-description"><T>RaccoonX isn't just another meme coin. It's a cyberpunk brand built for speed, community, and long-term growth inside the Solana ecosystem.</T></p>
 
           </div>
         </motion.div>

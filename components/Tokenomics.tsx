@@ -35,7 +35,7 @@ const allocations = [
     value: "15%",
     amount: "150M RCX",
     description:
-      "Used to expand the RACCOONX brand and reach new communities.",
+      "Used to expand the RaccoonX brand and reach new communities.",
     icon: FaChartPie,
   },
   {
@@ -106,7 +106,7 @@ export default function Tokenomics() {
 
           <h2 className="text-5xl font-black tracking-tight text-white md:text-6xl"><T>Tokenomics</T></h2>
 
-          <p className="mt-6 text-lg leading-8 text-white/40"><T>A simple and transparent distribution designed to support the long-term RACCOONX ecosystem.</T></p>
+          <p className="mt-6 text-lg leading-8 text-white/40"><T>A simple and transparent distribution designed to support the long-term RaccoonX ecosystem.</T></p>
         </motion.div>
 
         {/* TOKEN INFO */}

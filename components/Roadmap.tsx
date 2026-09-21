@@ -25,7 +25,7 @@ const phases: RoadmapPhase[] = [
     phase: "PHASE 01",
     title: "Launch",
     description:
-      "Establish the RACCOONX foundation and bring the first members into the ecosystem.",
+      "Establish the RaccoonX foundation and bring the first members into the ecosystem.",
     items: [
       "Website launch",
       "Social media launch",
@@ -39,7 +39,7 @@ const phases: RoadmapPhase[] = [
     phase: "PHASE 02",
     title: "Growth",
     description:
-      "Expand visibility, increase community activity and establish RACCOONX across major platforms.",
+      "Expand visibility, increase community activity and establish RaccoonX across major platforms.",
     items: [
       "DEX listing",
       "Marketing campaign",
@@ -67,7 +67,7 @@ const phases: RoadmapPhase[] = [
     phase: "PHASE 04",
     title: "Ecosystem",
     description:
-      "Introduce additional utilities and community-driven mechanisms for the next stage of RACCOONX.",
+      "Introduce additional utilities and community-driven mechanisms for the next stage of RaccoonX.",
     items: [
       "Staking",
       "DAO governance",
@@ -360,7 +360,7 @@ export default function Roadmap() {
             text-white/30
           "
         >
-          <span><T>Roadmap milestones may evolve as the RACCOONX community grows.</T></span>
+          <span><T>Roadmap milestones may evolve as the RaccoonX community grows.</T></span>
         </motion.div>
 
       </div>

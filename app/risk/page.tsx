@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Risk Disclaimer | RACCOONX",
-  description: "Important risk information regarding RCX and RACCOONX.",
+  title: "Risk Disclaimer | RaccoonX",
+  description: "Important risk information regarding RCX and RaccoonX.",
 };
 
 export default function RiskPage() {
@@ -13,7 +13,7 @@ export default function RiskPage() {
           href="/"
           className="text-sm font-bold text-purple-400 transition hover:text-purple-300"
         >
-          ← Back to RACCOONX
+          ← Back to RaccoonX
         </Link>
 
         <div className="mt-10">
@@ -59,7 +59,7 @@ export default function RiskPage() {
             Crypto markets can be highly volatile and may be affected by
             speculation, market sentiment, liquidity, regulation, technical
             events, broader economic conditions, and factors outside the
-            control of RACCOONX.
+            control of RaccoonX.
           </Section>
 
           <Section title="5. Blockchain Risk">
@@ -97,12 +97,12 @@ export default function RiskPage() {
           <Section title="10. Third-Party Risk">
             Wallet providers, exchanges, RPC providers, blockchain
             infrastructure, hosting providers and other third parties operate
-            independently from RACCOONX. Their failures or actions may affect
+            independently from RaccoonX. Their failures or actions may affect
             your ability to interact with RCX.
           </Section>
 
           <Section title="11. No Financial Advice">
-            RACCOONX content does not constitute investment, financial, legal,
+            RaccoonX content does not constitute investment, financial, legal,
             tax, or professional advice. You are responsible for evaluating
             your own circumstances and obtaining independent professional
             advice where appropriate.

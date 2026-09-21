@@ -1,5 +1,5 @@
-export const siteConfig = {
-  name: "RACCOONX",
+﻿export const siteConfig = {
+  name: "RaccoonX",
   symbol: "RCX",
     projectWallet: "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
 

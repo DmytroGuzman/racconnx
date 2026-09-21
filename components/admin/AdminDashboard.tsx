@@ -89,7 +89,7 @@ export default function AdminDashboard() {
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-green-400">
-              RACCOONX
+              RaccoonX
             </p>
             <h1 className="mt-1 text-xl font-black">Admin Dashboard</h1>
           </div>

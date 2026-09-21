@@ -108,6 +108,22 @@ export default function BuyRCX() {
   const [configLoading, setConfigLoading] =
     useState(true);
 
+  const [isMobile, setIsMobile] =
+    useState(false);
+
+  const [hasPhantom, setHasPhantom] =
+    useState(false);
+
+  useEffect(() => {
+    setIsMobile(
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+    );
+
+    setHasPhantom(
+      Boolean(window.phantom?.solana?.isPhantom)
+    );
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -200,24 +216,38 @@ export default function BuyRCX() {
     setDelivered(false);
 
     try {
-      const provider =
-        window.phantom?.solana;
+      const provider = window.phantom?.solana;
 
-      if (!provider?.isPhantom) {
-        window.open(
-          "https://phantom.com/",
-          "_blank",
-          "noopener,noreferrer"
-        );
+      // Desktop extension or Phantom in-app browser.
+      if (provider?.isPhantom) {
+        setHasPhantom(true);
 
+        const response = await provider.connect();
+
+        setWallet(response.publicKey.toString());
         return;
       }
 
-      const response =
-        await provider.connect();
+      // Mobile Safari / Chrome: open this page inside Phantom.
+      if (isMobile) {
+        const currentUrl = window.location.href;
 
-      setWallet(
-        response.publicKey.toString()
+        const phantomBrowseUrl =
+          `https://phantom.app/ul/browse/${encodeURIComponent(
+            currentUrl
+          )}?ref=${encodeURIComponent(
+            window.location.origin
+          )}`;
+
+        window.location.href = phantomBrowseUrl;
+        return;
+      }
+
+      // Desktop without Phantom extension.
+      window.open(
+        "https://phantom.com/",
+        "_blank",
+        "noopener,noreferrer"
       );
     } catch (err) {
       console.error(
@@ -639,7 +669,7 @@ export default function BuyRCX() {
           }}
           className="text-center"
         >
-          <div className="section-label justify-center"><T>BUY RACCOONX</T></div>
+          <div className="section-label justify-center"><T>BUY RaccoonX</T></div>
 
           <h2 className="section-title">
             <span className="gradient-text"><T>Get RCX</T></span>
@@ -983,7 +1013,11 @@ export default function BuyRCX() {
                   disabled:hover:scale-100
                 "
               >
-                {configLoading ? t("Loading sale...") : t("Connect Phantom")}
+                {configLoading
+                  ? t("Loading sale...")
+                  : isMobile && !hasPhantom
+                    ? t("Open in Phantom")
+                    : t("Connect Phantom")}
               </button>
             ) : (
               <button
