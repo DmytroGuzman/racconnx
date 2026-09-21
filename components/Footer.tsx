@@ -201,6 +201,9 @@ export default function Footer() {
             </h3>
 
             <div className="mt-6 space-y-5">
+
+              {/* NETWORK */}
+
               <div>
                 <span className="text-xs text-white/25">
                   <T>Network</T>
@@ -211,6 +214,8 @@ export default function Footer() {
                 </p>
               </div>
 
+              {/* TOKEN */}
+
               <div>
                 <span className="text-xs text-white/25">
                   <T>Token</T>
@@ -220,6 +225,8 @@ export default function Footer() {
                   {siteConfig.symbol}
                 </p>
               </div>
+
+              {/* TAX */}
 
               <div>
                 <span className="text-xs text-white/25">
@@ -295,25 +302,68 @@ export default function Footer() {
         <div
           className="
             mx-auto
-            flex
+            grid
             max-w-7xl
-            flex-col
-            gap-3
+            gap-4
             px-6
             py-6
             text-xs
             text-white/25
-            sm:flex-row
+            sm:grid-cols-3
             sm:items-center
-            sm:justify-between
           "
         >
-          <p>
+          {/* COPYRIGHT */}
+
+          <p className="sm:text-left">
             © {new Date().getFullYear()} {siteConfig.name}.{" "}
             <T>All rights reserved.</T>
           </p>
 
-          <p>
+          {/* LEGAL LINKS */}
+
+          <div className="flex items-center gap-5 sm:justify-center">
+            <a
+              href="/terms"
+              className="
+                transition-colors
+                duration-200
+                hover:text-white/70
+              "
+            >
+              <T>Terms</T>
+            </a>
+
+            <span className="text-white/10">•</span>
+
+            <a
+              href="/privacy"
+              className="
+                transition-colors
+                duration-200
+                hover:text-white/70
+              "
+            >
+              <T>Privacy</T>
+            </a>
+
+            <span className="text-white/10">•</span>
+
+            <a
+              href="/risk"
+              className="
+                transition-colors
+                duration-200
+                hover:text-white/70
+              "
+            >
+              <T>Risk</T>
+            </a>
+          </div>
+
+          {/* NETWORK */}
+
+          <p className="sm:text-right">
             <T>Built on</T> {siteConfig.token.network}.
           </p>
         </div>
