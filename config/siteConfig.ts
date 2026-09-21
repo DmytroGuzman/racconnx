@@ -17,7 +17,7 @@
 
   links: {
     // Socials
-    twitter: "#",
+    twitter: "https://x.com/RaccoonX_SOL",
     telegram: "#",
     discord: "#",
 
