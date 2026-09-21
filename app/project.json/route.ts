@@ -1,0 +1,13 @@
+import { NextResponse } from "next/server";
+
+export const dynamic = "force-static";
+
+export function GET() {
+  return NextResponse.json({
+    name: "RACCOONX",
+    symbol: "RCX",
+    network: "Solana",
+    website: "https://raccoonx.xyz",
+    projectWallet: "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
+  });
+}

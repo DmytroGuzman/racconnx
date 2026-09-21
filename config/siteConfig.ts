@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "RACCOONX",
   symbol: "RCX",
+    projectWallet: "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
 
   token: {
     network: "Solana",
