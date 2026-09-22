@@ -64,10 +64,21 @@ function getConfig() {
     Number(process.env.RCX_PER_SOL);
 
   const minPurchaseSol =
-    Number(process.env.MIN_PURCHASE_SOL ?? "0.001");
+    Number(
+      process.env.MIN_PURCHASE_SOL ??
+        "0.001"
+    );
 
   const maxPurchaseSol =
-    Number(process.env.MAX_PURCHASE_SOL);
+    Number(
+      process.env.MAX_PURCHASE_SOL
+    );
+
+  const presaleCapRcx =
+    Number(
+      process.env.PRESALE_CAP_RCX ??
+        "300000000"
+    );
 
   if (!databaseUrl) {
     throw new Error(
@@ -127,6 +138,16 @@ function getConfig() {
     );
   }
 
+  if (
+    !Number.isFinite(presaleCapRcx) ||
+    presaleCapRcx <= 0 ||
+    !Number.isInteger(presaleCapRcx)
+  ) {
+    throw new Error(
+      "PRESALE_CAP_RCX must be a positive integer."
+    );
+  }
+
   return {
     databaseUrl,
     mint,
@@ -136,6 +157,7 @@ function getConfig() {
     rcxPerSol,
     minPurchaseSol,
     maxPurchaseSol,
+    presaleCapRcx,
   };
 }
 
@@ -987,66 +1009,201 @@ export async function POST(
         10 ** decimals;
 
       /*
-      |--------------------------------------------------------------------------
-      | CLAIM PAYMENT IN DATABASE
-      |--------------------------------------------------------------------------
-      |
-      | UNIQUE(payment_signature)
-      | є головним захистом.
-      |
-      | ON CONFLICT DO NOTHING
-      | означає:
-      |
-      | тільки один конкурентний
-      | запит зможе отримати право
-      | на видачу RCX.
-      |
-      */
+|--------------------------------------------------------------------------
+| CLAIM PAYMENT + RESERVE PRESALE ALLOCATION
+|--------------------------------------------------------------------------
+|
+| Тут одночасно:
+|
+| 1. Перевіряємо, що payment_signature ще не використаний.
+| 2. Перевіряємо presale cap.
+| 3. Резервуємо RCX.
+| 4. Створюємо purchase зі статусом processing.
+|
+| UPDATE sale_state є атомарним, тому дві одночасні
+| покупки не зможуть перевищити PRESALE_CAP_RCX.
+|
+*/
 
-      const claimed =
-        await sql`
-          INSERT INTO purchases (
-            payment_signature,
-            buyer_wallet,
-            sol_lamports,
-            rcx_raw_amount,
-            status
-          )
-          VALUES (
-            ${signature},
-            ${buyer.toBase58()},
-            ${paidLamports},
-            ${rcxRawAmount.toString()},
-            'processing'
-          )
+const presaleCapRaw =
+  BigInt(config.presaleCapRcx) *
+  rawMultiplier;
 
-          ON CONFLICT (
-            payment_signature
-          )
-          DO NOTHING
+const claimed =
+  await sql`
+    WITH payment_available AS (
+      SELECT 1
+      WHERE NOT EXISTS (
+        SELECT 1
+        FROM purchases
+        WHERE
+          payment_signature =
+            ${signature}
+      )
+    ),
 
-          RETURNING id
-        `;
+    reserved AS (
+      UPDATE sale_state
+      SET
+        reserved_rcx_raw =
+          reserved_rcx_raw +
+          ${rcxRawAmount.toString()},
 
-      if (
-        claimed.length === 0
-      ) {
-        return NextResponse.json(
-          {
-            ok: false,
+        updated_at =
+          NOW()
 
-            verified: true,
+      WHERE
+        id = 1
 
-            delivered: false,
+        AND EXISTS (
+          SELECT 1
+          FROM payment_available
+        )
 
-            error:
-              "This payment is already being processed.",
-          },
-          {
-            status: 409,
-          }
-        );
+        AND
+          reserved_rcx_raw +
+          ${rcxRawAmount.toString()}
+          <=
+          ${presaleCapRaw.toString()}
+
+      RETURNING
+        reserved_rcx_raw
+    )
+
+    INSERT INTO purchases (
+      payment_signature,
+      buyer_wallet,
+      sol_lamports,
+      rcx_raw_amount,
+      status
+    )
+
+    SELECT
+      ${signature},
+      ${buyer.toBase58()},
+      ${paidLamports},
+      ${rcxRawAmount.toString()},
+      'processing'
+
+    FROM reserved
+
+    ON CONFLICT (
+      payment_signature
+    )
+    DO NOTHING
+
+    RETURNING id
+  `;
+
+/*
+|--------------------------------------------------------------------------
+| CLAIM FAILED
+|--------------------------------------------------------------------------
+*/
+
+if (claimed.length === 0) {
+  /*
+   * Спочатку перевіряємо, чи це повторне
+   * використання тієї самої SOL transaction.
+   */
+
+  const existingPurchase =
+    await sql`
+      SELECT
+        id,
+        status
+      FROM purchases
+      WHERE
+        payment_signature =
+          ${signature}
+      LIMIT 1
+    `;
+
+  if (existingPurchase.length > 0) {
+    return NextResponse.json(
+      {
+        ok: false,
+
+        verified: true,
+
+        delivered: false,
+
+        alreadyProcessed: true,
+
+        error:
+          "This payment has already been processed.",
+      },
+      {
+        status: 409,
       }
+    );
+  }
+
+  /*
+   * Якщо signature немає в БД,
+   * значить reservation не пройшла через cap.
+   */
+
+  const [saleState] =
+    await sql`
+      SELECT
+        reserved_rcx_raw::text
+          AS reserved_rcx_raw
+      FROM sale_state
+      WHERE id = 1
+      LIMIT 1
+    `;
+
+  const reservedRaw =
+    saleState
+      ? BigInt(
+          saleState.reserved_rcx_raw
+        )
+      : 0n;
+
+  const remainingRaw =
+    presaleCapRaw >
+    reservedRaw
+      ? presaleCapRaw -
+        reservedRaw
+      : 0n;
+
+  const remainingRcx =
+    Number(remainingRaw) /
+    10 ** decimals;
+
+  return NextResponse.json(
+    {
+      ok: false,
+
+      verified: true,
+
+      delivered: false,
+
+      soldOut:
+        remainingRaw === 0n,
+
+      allocationExceeded:
+        remainingRaw > 0n,
+
+      error:
+        remainingRaw === 0n
+          ? "RCX presale is sold out."
+          : "Purchase exceeds the remaining RCX presale allocation.",
+
+      presale: {
+        cap:
+          config.presaleCapRcx,
+
+        remaining:
+          remainingRcx,
+      },
+    },
+    {
+      status: 409,
+    }
+  );
+}
 
       /*
       |--------------------------------------------------------------------------
