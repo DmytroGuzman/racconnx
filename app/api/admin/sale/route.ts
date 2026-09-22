@@ -1,10 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
+
 import { neon } from "@neondatabase/serverless";
+
+import {
+  Connection,
+  PublicKey,
+} from "@solana/web3.js";
+
+import { getMint } from "@solana/spl-token";
+
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getSaleSettings } from "@/lib/saleSettings";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+/*
+|--------------------------------------------------------------------------
+| SOLANA
+|--------------------------------------------------------------------------
+*/
+
+const RPC_URL =
+  process.env.SOLANA_RPC_URL ??
+  "https://api.mainnet-beta.solana.com";
 
 /*
 |--------------------------------------------------------------------------
@@ -127,21 +149,54 @@ export async function GET() {
 
     /*
     |--------------------------------------------------------------------------
+    | TOKEN MINT
+    |--------------------------------------------------------------------------
+    |
+    | Decimals отримуємо безпосередньо з поточного RCX mint.
+    | Ніякого hardcode 6 або 9.
+    |
+    */
+
+    const mintAddress =
+      process.env.RCX_MINT;
+
+    if (!mintAddress) {
+      throw new Error(
+        "RCX_MINT is not configured."
+      );
+    }
+
+    const connection =
+      new Connection(
+        RPC_URL,
+        "confirmed"
+      );
+
+    const mint =
+      new PublicKey(
+        mintAddress
+      );
+
+    const mintInfo =
+      await getMint(
+        connection,
+        mint
+      );
+
+    const decimals =
+      mintInfo.decimals;
+
+    const multiplier =
+      10n **
+      BigInt(decimals);
+
+    /*
+    |--------------------------------------------------------------------------
     | PRESALE STATE
     |--------------------------------------------------------------------------
     |
-    | sold:
-    |   RCX, які вже успішно доставлені покупцям.
-    |
-    | reserved:
-    |   RCX, тимчасово зайняті покупками,
-    |   які ще обробляються.
-    |
-    | used:
-    |   sold + reserved.
-    |
-    | remaining:
-    |   cap - sold - reserved.
+    | reserved_rcx_raw:
+    | RCX, які зараз зарезервовані активними покупками.
     |
     */
 
@@ -150,8 +205,11 @@ export async function GET() {
         SELECT
           reserved_rcx_raw::text
             AS reserved_rcx_raw
+
         FROM sale_state
+
         WHERE id = 1
+
         LIMIT 1
       `;
 
@@ -159,6 +217,10 @@ export async function GET() {
     |--------------------------------------------------------------------------
     | SOLD RCX
     |--------------------------------------------------------------------------
+    |
+    | Проданими вважаємо тільки покупки,
+    | які реально отримали статус delivered.
+    |
     */
 
     const [sold] =
@@ -178,17 +240,9 @@ export async function GET() {
 
     /*
     |--------------------------------------------------------------------------
-    | TOKEN DECIMALS
+    | RAW VALUES
     |--------------------------------------------------------------------------
-    |
-    | Поточний RCX mint використовує 9 decimals.
-    |
     */
-
-    const decimals = 9;
-
-    const multiplier =
-      10n ** BigInt(decimals);
 
     const capRaw =
       BigInt(presaleCapRcx) *
@@ -210,6 +264,12 @@ export async function GET() {
     |--------------------------------------------------------------------------
     | PRESALE MATH
     |--------------------------------------------------------------------------
+    |
+    | used = sold + reserved
+    |
+    | remaining =
+    | cap - sold - reserved
+    |
     */
 
     const usedRaw =
@@ -222,21 +282,30 @@ export async function GET() {
           usedRaw
         : 0n;
 
+    /*
+    |--------------------------------------------------------------------------
+    | DISPLAY VALUES
+    |--------------------------------------------------------------------------
+    */
+
+    const displayMultiplier =
+      10 ** decimals;
+
     const soldRcx =
       Number(soldRaw) /
-      10 ** decimals;
+      displayMultiplier;
 
     const reservedRcx =
       Number(reservedRaw) /
-      10 ** decimals;
+      displayMultiplier;
 
     const remainingRcx =
       Number(remainingRaw) /
-      10 ** decimals;
+      displayMultiplier;
 
     const usedRcx =
       Number(usedRaw) /
-      10 ** decimals;
+      displayMultiplier;
 
     const progress =
       presaleCapRcx > 0
@@ -343,6 +412,12 @@ export async function PUT(
         body.maxPurchaseSol
       );
 
+    /*
+    |--------------------------------------------------------------------------
+    | VALIDATION
+    |--------------------------------------------------------------------------
+    */
+
     if (
       !Number.isInteger(rcxPerSol) ||
       rcxPerSol <= 0
@@ -350,6 +425,7 @@ export async function PUT(
       return NextResponse.json(
         {
           ok: false,
+
           error:
             "RCX per SOL має бути цілим числом більше 0.",
         },
@@ -368,6 +444,7 @@ export async function PUT(
       return NextResponse.json(
         {
           ok: false,
+
           error:
             "Мінімальна покупка має бути більше 0 SOL.",
         },
@@ -387,6 +464,7 @@ export async function PUT(
       return NextResponse.json(
         {
           ok: false,
+
           error:
             "Максимальна покупка не може бути меншою за мінімальну.",
         },
@@ -395,6 +473,12 @@ export async function PUT(
         }
       );
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DATABASE
+    |--------------------------------------------------------------------------
+    */
 
     const sql = db();
 
@@ -406,6 +490,7 @@ export async function PUT(
     const [row] =
       await sql`
         UPDATE sale_settings
+
         SET
           active =
             ${active},
@@ -432,12 +517,20 @@ export async function PUT(
           updated_at
       `;
 
+    /*
+    |--------------------------------------------------------------------------
+    | RESPONSE
+    |--------------------------------------------------------------------------
+    */
+
     return NextResponse.json({
       ok: true,
 
       settings: {
         active:
-          Boolean(row.active),
+          Boolean(
+            row.active
+          ),
 
         rcxPerSol:
           Number(
