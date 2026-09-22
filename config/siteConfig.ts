@@ -9,10 +9,10 @@
     tax: "0%",
     decimals: 9,
 
-    contract: "95BNZdoQfzBTQ9etGsqb5rVr94XRgYiCo8QQAa86mw9v",
+    contract: "4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
 
-    explorer:
-      "https://explorer.solana.com/address/95BNZdoQfzBTQ9etGsqb5rVr94XRgYiCo8QQAa86mw9v",
+explorer:
+  "https://explorer.solana.com/address/4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
   },
 
   links: {
