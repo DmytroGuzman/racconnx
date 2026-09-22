@@ -1013,15 +1013,16 @@ export async function POST(
 | CLAIM PAYMENT + RESERVE PRESALE ALLOCATION
 |--------------------------------------------------------------------------
 |
-| Тут одночасно:
+| Ліміт рахується так:
 |
-| 1. Перевіряємо, що payment_signature ще не використаний.
-| 2. Перевіряємо presale cap.
-| 3. Резервуємо RCX.
-| 4. Створюємо purchase зі статусом processing.
+| DELIVERED + RESERVED + NEW PURCHASE <= PRESALE CAP
 |
-| UPDATE sale_state є атомарним, тому дві одночасні
-| покупки не зможуть перевищити PRESALE_CAP_RCX.
+| delivered:
+|   RCX, які вже реально продані.
+|
+| reserved:
+|   RCX, які тимчасово зарезервовані покупками,
+|   що зараз обробляються або потребують review.
 |
 */
 
@@ -1029,10 +1030,28 @@ const presaleCapRaw =
   BigInt(config.presaleCapRcx) *
   rawMultiplier;
 
+/*
+|--------------------------------------------------------------------------
+| ATOMIC CLAIM
+|--------------------------------------------------------------------------
+|
+| pg_advisory_xact_lock серіалізує операції presale.
+|
+| Завдяки цьому дві одночасні покупки не можуть
+| одночасно побачити один і той самий залишок.
+|
+*/
+
 const claimed =
   await sql`
-    WITH payment_available AS (
+    WITH lock_presale AS (
+      SELECT
+        pg_advisory_xact_lock(927001)
+    ),
+
+    payment_available AS (
       SELECT 1
+      FROM lock_presale
       WHERE NOT EXISTS (
         SELECT 1
         FROM purchases
@@ -1042,8 +1061,25 @@ const claimed =
       )
     ),
 
+    sold AS (
+      SELECT
+        COALESCE(
+          SUM(rcx_raw_amount)
+            FILTER (
+              WHERE status = 'delivered'
+            ),
+          0
+        )::numeric
+          AS sold_raw
+
+      FROM purchases
+
+      CROSS JOIN lock_presale
+    ),
+
     reserved AS (
       UPDATE sale_state
+
       SET
         reserved_rcx_raw =
           reserved_rcx_raw +
@@ -1052,8 +1088,10 @@ const claimed =
         updated_at =
           NOW()
 
+      FROM sold
+
       WHERE
-        id = 1
+        sale_state.id = 1
 
         AND EXISTS (
           SELECT 1
@@ -1061,13 +1099,14 @@ const claimed =
         )
 
         AND
-          reserved_rcx_raw +
+          sold.sold_raw +
+          sale_state.reserved_rcx_raw +
           ${rcxRawAmount.toString()}
           <=
           ${presaleCapRaw.toString()}
 
       RETURNING
-        reserved_rcx_raw
+        sale_state.reserved_rcx_raw
     )
 
     INSERT INTO purchases (
@@ -1103,8 +1142,8 @@ const claimed =
 
 if (claimed.length === 0) {
   /*
-   * Спочатку перевіряємо, чи це повторне
-   * використання тієї самої SOL transaction.
+   * Перевіряємо, чи payment signature
+   * вже існує.
    */
 
   const existingPurchase =
@@ -1140,11 +1179,12 @@ if (claimed.length === 0) {
   }
 
   /*
-   * Якщо signature немає в БД,
-   * значить reservation не пройшла через cap.
+   * Якщо signature немає,
+   * значить покупка не вмістилася
+   * у presale allocation.
    */
 
-  const [saleState] =
+  const [state] =
     await sql`
       SELECT
         reserved_rcx_raw::text
@@ -1154,18 +1194,41 @@ if (claimed.length === 0) {
       LIMIT 1
     `;
 
+  const [sold] =
+    await sql`
+      SELECT
+        COALESCE(
+          SUM(rcx_raw_amount)
+            FILTER (
+              WHERE status = 'delivered'
+            ),
+          0
+        )::text
+          AS sold_raw
+
+      FROM purchases
+    `;
+
   const reservedRaw =
-    saleState
-      ? BigInt(
-          saleState.reserved_rcx_raw
-        )
-      : 0n;
+    BigInt(
+      state?.reserved_rcx_raw ??
+        "0"
+    );
+
+  const soldRaw =
+    BigInt(
+      sold?.sold_raw ??
+        "0"
+    );
+
+  const usedRaw =
+    soldRaw +
+    reservedRaw;
 
   const remainingRaw =
-    presaleCapRaw >
-    reservedRaw
+    presaleCapRaw > usedRaw
       ? presaleCapRaw -
-        reservedRaw
+        usedRaw
       : 0n;
 
   const remainingRcx =
@@ -1245,38 +1308,85 @@ if (claimed.length === 0) {
           );
 
         if (
-          available <
-          rcxRawAmount
-        ) {
-          await sql`
-            UPDATE purchases
-            SET
-              status = 'failed',
-              updated_at = NOW()
-            WHERE
-              payment_signature =
-                ${signature}
-          `;
+  available <
+  rcxRawAmount
+) {
+  /*
+  |--------------------------------------------------------------------------
+  | DEFINITIVE DELIVERY FAILURE
+  |--------------------------------------------------------------------------
+  |
+  | transferChecked ще НЕ викликався.
+  |
+  | Тому ми точно знаємо, що RCX покупцю
+  | не були відправлені, і можемо безпечно:
+  |
+  | 1. перевести purchase processing -> failed;
+  | 2. повернути його RCX із reserved allocation.
+  |
+  */
 
-          return NextResponse.json(
-            {
-              ok: false,
+  await sql`
+    WITH failed_purchase AS (
+      UPDATE purchases
 
-              verified: true,
+      SET
+        status = 'failed',
+        updated_at = NOW()
 
-              delivered: false,
+      WHERE
+        payment_signature =
+          ${signature}
 
-              requiresReview:
-                true,
+        AND status =
+          'processing'
 
-              error:
-                "Sale wallet does not have enough RCX.",
-            },
-            {
-              status: 500,
-            }
-          );
-        }
+      RETURNING
+        rcx_raw_amount
+    )
+
+    UPDATE sale_state
+
+    SET
+      reserved_rcx_raw =
+        GREATEST(
+          0,
+          reserved_rcx_raw -
+            COALESCE(
+              (
+                SELECT
+                  rcx_raw_amount
+                FROM failed_purchase
+                LIMIT 1
+              ),
+              0
+            )
+        ),
+
+      updated_at =
+        NOW()
+
+    WHERE id = 1
+  `;
+
+  return NextResponse.json(
+    {
+      ok: false,
+
+      verified: true,
+
+      delivered: false,
+
+      requiresReview: false,
+
+      error:
+        "Sale wallet does not have enough RCX.",
+    },
+    {
+      status: 500,
+    }
+  );
+}
 
         /*
         |--------------------------------------------------------------------------
@@ -1317,16 +1427,52 @@ if (claimed.length === 0) {
         */
 
         await sql`
-          UPDATE purchases
-          SET
-            status = 'delivered',
-            rcx_signature =
-              ${rcxSignature},
-            updated_at = NOW()
-          WHERE
-            payment_signature =
-              ${signature}
-        `;
+  WITH delivered AS (
+    UPDATE purchases
+
+    SET
+      status = 'delivered',
+
+      rcx_signature =
+        ${rcxSignature},
+
+      updated_at =
+        NOW()
+
+    WHERE
+      payment_signature =
+        ${signature}
+
+      AND status =
+        'processing'
+
+    RETURNING
+      rcx_raw_amount
+  )
+
+  UPDATE sale_state
+
+  SET
+    reserved_rcx_raw =
+      GREATEST(
+        0,
+        reserved_rcx_raw -
+          COALESCE(
+            (
+              SELECT
+                rcx_raw_amount
+              FROM delivered
+              LIMIT 1
+            ),
+            0
+          )
+      ),
+
+    updated_at =
+      NOW()
+
+  WHERE id = 1
+`;
 
         return NextResponse.json({
           ok: true,
@@ -1401,15 +1547,47 @@ if (claimed.length === 0) {
         );
 
         await sql`
-          UPDATE purchases
-          SET
-            status = 'failed',
-            updated_at = NOW()
-          WHERE
-            payment_signature =
-              ${signature}
-            AND status = 'processing'
-        `;
+  WITH failed AS (
+    UPDATE purchases
+
+    SET
+      status = 'failed',
+      updated_at = NOW()
+
+    WHERE
+      payment_signature =
+        ${signature}
+
+      AND status =
+        'processing'
+
+    RETURNING
+      rcx_raw_amount
+  )
+
+  UPDATE sale_state
+
+  SET
+    reserved_rcx_raw =
+      GREATEST(
+        0,
+        reserved_rcx_raw -
+          COALESCE(
+            (
+              SELECT
+                rcx_raw_amount
+              FROM failed
+              LIMIT 1
+            ),
+            0
+          )
+      ),
+
+    updated_at =
+      NOW()
+
+  WHERE id = 1
+`;
 
         return NextResponse.json(
           {

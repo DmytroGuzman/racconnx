@@ -126,13 +126,24 @@ export async function GET() {
       getPresaleCap();
 
     /*
-     * sale_state зберігає весь allocation,
-     * який уже був зарезервований системою.
-     *
-     * Це включає успішно видані RCX,
-     * а також невизначені покупки, які
-     * потребують ручної перевірки.
-     */
+    |--------------------------------------------------------------------------
+    | PRESALE STATE
+    |--------------------------------------------------------------------------
+    |
+    | sold:
+    |   RCX, які вже успішно доставлені покупцям.
+    |
+    | reserved:
+    |   RCX, тимчасово зайняті покупками,
+    |   які ще обробляються.
+    |
+    | used:
+    |   sold + reserved.
+    |
+    | remaining:
+    |   cap - sold - reserved.
+    |
+    */
 
     const [state] =
       await sql`
@@ -145,61 +156,10 @@ export async function GET() {
       `;
 
     /*
-     * Отримуємо decimals з RCX_MINT через
-     * вже відомий формат токена.
-     *
-     * Для поточного RCX mint = 9 decimals.
-     *
-     * Значення також можна перевірити через
-     * /api/admin/health.
-     */
-
-    const decimals = 9;
-
-    const multiplier =
-      10n ** BigInt(decimals);
-
-    const capRaw =
-      BigInt(presaleCapRcx) *
-      multiplier;
-
-    const reservedRaw =
-      state
-        ? BigInt(
-            state.reserved_rcx_raw
-          )
-        : 0n;
-
-    const remainingRaw =
-      reservedRaw < capRaw
-        ? capRaw - reservedRaw
-        : 0n;
-
-    const reservedRcx =
-      Number(reservedRaw) /
-      10 ** decimals;
-
-    const remainingRcx =
-      Number(remainingRaw) /
-      10 ** decimals;
-
-    const progress =
-      presaleCapRcx > 0
-        ? Math.min(
-            100,
-            (reservedRcx /
-              presaleCapRcx) *
-              100
-          )
-        : 0;
-
-    /*
-     * Окремо рахуємо реально delivered RCX.
-     * Це дозволяє відрізнити:
-     *
-     * sold       = реально видано покупцям
-     * reserved   = зайнято allocation загалом
-     */
+    |--------------------------------------------------------------------------
+    | SOLD RCX
+    |--------------------------------------------------------------------------
+    */
 
     const [sold] =
       await sql`
@@ -210,18 +170,90 @@ export async function GET() {
                 WHERE status = 'delivered'
               ),
             0
-          )::text AS rcx_raw
+          )::text
+            AS sold_raw
+
         FROM purchases
       `;
 
+    /*
+    |--------------------------------------------------------------------------
+    | TOKEN DECIMALS
+    |--------------------------------------------------------------------------
+    |
+    | Поточний RCX mint використовує 9 decimals.
+    |
+    */
+
+    const decimals = 9;
+
+    const multiplier =
+      10n ** BigInt(decimals);
+
+    const capRaw =
+      BigInt(presaleCapRcx) *
+      multiplier;
+
     const soldRaw =
       BigInt(
-        sold?.rcx_raw ?? "0"
+        sold?.sold_raw ??
+          "0"
       );
+
+    const reservedRaw =
+      BigInt(
+        state?.reserved_rcx_raw ??
+          "0"
+      );
+
+    /*
+    |--------------------------------------------------------------------------
+    | PRESALE MATH
+    |--------------------------------------------------------------------------
+    */
+
+    const usedRaw =
+      soldRaw +
+      reservedRaw;
+
+    const remainingRaw =
+      capRaw > usedRaw
+        ? capRaw -
+          usedRaw
+        : 0n;
 
     const soldRcx =
       Number(soldRaw) /
       10 ** decimals;
+
+    const reservedRcx =
+      Number(reservedRaw) /
+      10 ** decimals;
+
+    const remainingRcx =
+      Number(remainingRaw) /
+      10 ** decimals;
+
+    const usedRcx =
+      Number(usedRaw) /
+      10 ** decimals;
+
+    const progress =
+      presaleCapRcx > 0
+        ? Math.min(
+            100,
+            (
+              usedRcx /
+              presaleCapRcx
+            ) * 100
+          )
+        : 0;
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESPONSE
+    |--------------------------------------------------------------------------
+    */
 
     return NextResponse.json({
       ok: true,
