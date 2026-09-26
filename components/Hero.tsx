@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import StatsCard from "./StatsCard";
 import { siteConfig } from "../config/siteConfig";
@@ -12,129 +11,119 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-7xl">
         <div className="grid w-full grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="w-full"
-          >
+          <div className="w-full">
             {/* BADGE */}
-            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-purple-500/30 bg-white/5 px-4 py-2 text-xs text-gray-300 backdrop-blur-xl sm:px-5 sm:text-sm"><T>🦝 Cyberpunk Meme Coin • Solana</T></span>
+            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-purple-500/30 bg-white/5 px-4 py-2 text-xs text-gray-300 backdrop-blur-xl sm:px-5 sm:text-sm">
+              <T>🦝 Cyberpunk Meme Coin • Solana</T>
+            </span>
 
             {/* TITLE */}
-           <h1 className="mt-8 w-full">
-  <span
-    className="
-      block
-      bg-gradient-to-r
-      from-purple-500
-      to-green-400
-      bg-clip-text
-      text-[clamp(2.8rem,7vw,6rem)]
-      font-black
-      leading-none
-      tracking-[-0.05em]
-      text-transparent
-    "
-  ><T>RaccoonX</T></span>
-</h1>
+            <h1 className="mt-8 w-full">
+              <span
+                className="
+                  block
+                  bg-gradient-to-r
+                  from-purple-500
+                  to-green-400
+                  bg-clip-text
+                  text-[clamp(2.8rem,7vw,6rem)]
+                  font-black
+                  leading-none
+                  tracking-[-0.05em]
+                  text-transparent
+                "
+              >
+                <T>RaccoonX</T>
+              </span>
+            </h1>
 
             {/* SLOGAN */}
             <div className="mt-6 font-black uppercase italic leading-[0.95] tracking-[-0.04em]">
-  <div className="text-3xl text-white sm:text-4xl lg:text-5xl">
-    <T>No Trash.</T>
-  </div>
+              <div className="text-3xl text-white sm:text-4xl lg:text-5xl">
+                <T>No Trash.</T>
+              </div>
 
-  <div className="mt-2 bg-gradient-to-r from-purple-500 via-violet-400 to-emerald-400 bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">
-    <T>Just Gains.</T>
-  </div>
-</div>
+              <div className="mt-2 bg-gradient-to-r from-purple-500 via-violet-400 to-emerald-400 bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">
+                <T>Just Gains.</T>
+              </div>
+            </div>
 
             {/* DESCRIPTION */}
-            <p className="mt-8 max-w-xl text-base leading-7 text-gray-400 sm:text-lg sm:leading-8"><T>The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.</T></p>
+            <p className="mt-8 max-w-xl text-base leading-7 text-gray-400 sm:text-lg sm:leading-8">
+              <T>
+                The next generation Solana meme coin combining community,
+                speed and cyberpunk aesthetics.
+              </T>
+            </p>
 
-           {/* BUTTONS */}
-<div className="mt-10 flex flex-wrap gap-4 sm:gap-5">
-  <a
-    href={siteConfig.links.buy}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500 to-green-400 px-6 py-3.5 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(153,69,255,.55)] sm:px-8 sm:py-4"
-  ><T>Buy RCX</T></a>
+            {/* BUTTONS */}
+            <div className="mt-10 flex flex-wrap gap-4 sm:gap-5">
+              <a
+                href={siteConfig.links.buy}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500 to-green-400 px-6 py-3.5 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(153,69,255,.55)] sm:px-8 sm:py-4"
+              >
+                <T>Buy RCX</T>
+              </a>
 
-  <a
-    href={siteConfig.links.whitepaper}
-    className="rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 font-bold backdrop-blur-xl transition hover:bg-white/10 sm:px-8 sm:py-4"
-  ><T>Whitepaper</T></a>
-</div>
+              <a
+                href={siteConfig.links.whitepaper}
+                className="rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 font-bold backdrop-blur-xl transition hover:bg-white/10 sm:px-8 sm:py-4"
+              >
+                <T>Whitepaper</T>
+              </a>
+            </div>
+
             {/* STATS */}
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">
-  <StatsCard
-  value={
-    Number(siteConfig.token.totalSupply.replace(/,/g, "")) >= 1_000_000_000
-      ? `${Number(siteConfig.token.totalSupply.replace(/,/g, "")) / 1_000_000_000}B`
-      : siteConfig.token.totalSupply
-  }
-  title="Supply"
-/>
+            <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-16 sm:gap-6">
+              <StatsCard
+                value={
+                  Number(
+                    siteConfig.token.totalSupply.replace(/,/g, "")
+                  ) >= 1_000_000_000
+                    ? `${
+                        Number(
+                          siteConfig.token.totalSupply.replace(/,/g, "")
+                        ) / 1_000_000_000
+                      }B`
+                    : siteConfig.token.totalSupply
+                }
+                title="Supply"
+              />
 
-  <StatsCard
-    value={siteConfig.token.tax}
-    title="Tax"
-  />
+              <StatsCard
+                value={siteConfig.token.tax}
+                title="Tax"
+              />
 
-  <StatsCard
-    value={siteConfig.token.network}
-    title="Network"
-  />
+              <StatsCard
+                value={siteConfig.token.network}
+                title="Network"
+              />
 
-  <StatsCard
-    value={siteConfig.symbol}
-    title="Token"
-  />
-</div>
-          </motion.div>
+              <StatsCard
+                value={siteConfig.symbol}
+                title="Token"
+              />
+            </div>
+          </div>
 
           {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative flex w-full items-center justify-center"
-          >
+          <div className="relative flex w-full items-center justify-center">
             {/* GLOW */}
-            <motion.div
-              animate={{
-                scale: [1, 1.15, 1],
-                opacity: [0.4, 0.8, 0.4],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute h-[280px] w-[280px] rounded-full bg-gradient-to-r from-purple-500/40 to-green-400/30 blur-[90px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] lg:h-[520px] lg:w-[520px]"
-            />
+            <div className="absolute h-[280px] w-[280px] rounded-full bg-gradient-to-r from-purple-500/40 to-green-400/30 blur-[90px] sm:h-[420px] sm:w-[420px] sm:blur-[120px] lg:h-[520px] lg:w-[520px]" />
 
             {/* LOGO */}
-            <motion.div
-              animate={{
-                y: [-12, 12, -12],
-                rotate: [-2, 2, -2],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative z-10 flex w-full justify-center"
-            >
+            <div className="relative z-10 flex w-full justify-center">
               <Image
-  src="/logo.png"
+                  src="/logo.png"
   alt="RaccoonX"
   width={650}
   height={650}
   priority
+  fetchPriority="high"
+  sizes="(max-width: 639px) 260px, (max-width: 1023px) 400px, 650px"
   className="
     h-auto
     w-[260px]
@@ -143,13 +132,12 @@ export default function Hero() {
     drop-shadow-[0_0_70px_rgba(153,69,255,.45)]
     sm:w-[400px]
     lg:w-[650px]
-  "
-/>
-            </motion.div>
-          </motion.div>
+                "
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

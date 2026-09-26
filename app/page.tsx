@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import Particles from "@/components/Particles";
+import OptimizedParticles from "@/components/OptimizedParticles";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Tokenomics from "@/components/Tokenomics";
@@ -16,7 +16,7 @@ export default function Home() {
     <LanguageProvider>
     <main className="relative min-h-screen w-full overflow-x-hidden">
       <Navbar />
-      <Particles />
+      <OptimizedParticles />
 
       <Hero />
       <BuyRCX />

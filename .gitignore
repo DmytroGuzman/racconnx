@@ -47,3 +47,5 @@ next-env.d.ts
 last-debug.txt
 README-SECURITY.txt
 CHECK-PURCHASE-CONSTRAINT.sql
+.vercel
+.env*
