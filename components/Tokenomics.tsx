@@ -23,7 +23,7 @@ const allocations = [
     icon: FaChartPie,
   },
   {
-    label: "Community",
+    label: "Community Presale",
     value: "30%",
     amount: "300M RCX",
     description:
