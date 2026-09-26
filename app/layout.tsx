@@ -17,23 +17,24 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.raccoonx.xyz"),
 
   title: {
-    default: "RaccoonX — No Trash. Just Gains.",
+    default: "RaccoonX (RCX) — Solana Meme Coin | Official Website",
     template: "%s | RaccoonX",
   },
 
   description:
-    "RaccoonX is a cyberpunk meme coin built on Solana. Community, speed and pure raccoon energy.",
+    "Official RaccoonX (RCX) website. Discover the RaccoonX Solana meme coin, token details, presale information, roadmap and community.",
 
   applicationName: "RaccoonX",
 
   keywords: [
     "RaccoonX",
+    "RaccoonX RCX",
     "RCX",
-    "Solana",
-    "Solana meme coin",
-    "crypto",
-    "meme coin",
+    "RCX token",
     "RaccoonX token",
+    "Solana meme coin",
+    "Solana token",
+    "crypto meme coin",
   ],
 
   alternates: {
@@ -44,24 +45,24 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.raccoonx.xyz",
     siteName: "RaccoonX",
-    title: "RaccoonX — No Trash. Just Gains.",
+    title: "RaccoonX (RCX) — No Trash. Just Gains.",
     description:
-      "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
+      "RaccoonX is a Solana meme coin powered by community, speed and pure raccoon energy.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "RaccoonX — No Trash. Just Gains.",
+        alt: "RaccoonX (RCX)",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "RaccoonX — No Trash. Just Gains.",
+    title: "RaccoonX (RCX) — No Trash. Just Gains.",
     description:
-      "The next generation Solana meme coin combining community, speed and cyberpunk aesthetics.",
+      "RaccoonX is a Solana meme coin powered by community, speed and pure raccoon energy.",
     images: ["/og-image.png"],
   },
 
