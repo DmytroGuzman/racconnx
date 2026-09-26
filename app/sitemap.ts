@@ -1,9 +1,9 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://raccoonx.xyz",
+      url: "https://www.raccoonx.xyz",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,

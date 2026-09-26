@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 export const dynamic = "force-static";
 
@@ -7,7 +7,7 @@ export function GET() {
     name: "RaccoonX",
     symbol: "RCX",
     network: "Solana",
-    website: "https://raccoonx.xyz",
+    website: "https://www.raccoonx.xyz",
     projectWallet: "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
   });
 }

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://raccoonx.xyz"),
+  metadataBase: new URL("https://www.raccoonx.xyz"),
 
   title: {
     default: "RaccoonX — No Trash. Just Gains.",
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://raccoonx.xyz",
+    canonical: "https://www.raccoonx.xyz",
   },
 
   openGraph: {
     type: "website",
-    url: "https://raccoonx.xyz",
+    url: "https://www.raccoonx.xyz",
     siteName: "RaccoonX",
     title: "RaccoonX — No Trash. Just Gains.",
     description:
@@ -92,3 +92,4 @@ export default function RootLayout({
     </html>
   );
 }
+
