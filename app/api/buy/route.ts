@@ -1527,18 +1527,25 @@ if (claimed.length === 0) {
               buyerTokenAccount.address.toBase58(),
           },
         });
-      } catch (deliveryError) {
+            } catch (deliveryError) {
         /*
          * ВАЖЛИВО:
          *
-         * Тут НЕ видаляємо purchase.
+         * SOL payment вже був перевірений.
          *
-         * Ми не завжди можемо знати,
-         * чи Solana встигла прийняти
-         * transfer перед network error.
+         * Якщо помилка сталася після спроби transferChecked(),
+         * ми не можемо на 100% знати, чи Solana вже прийняла
+         * переказ RCX до моменту RPC/network error.
          *
-         * Тому повторна автоматична
-         * видача блокується.
+         * Тому:
+         *
+         * 1. Purchase переводимо у failed.
+         * 2. Purchase НЕ видаляємо.
+         * 3. reserved_rcx_raw НЕ зменшуємо.
+         * 4. Покупка повинна потрапити в manual review.
+         *
+         * Reservation буде звільнено тільки після того,
+         * як адміністратор точно визначить результат доставки.
          */
 
         console.error(
@@ -1547,47 +1554,19 @@ if (claimed.length === 0) {
         );
 
         await sql`
-  WITH failed AS (
-    UPDATE purchases
+          UPDATE purchases
 
-    SET
-      status = 'failed',
-      updated_at = NOW()
+          SET
+            status = 'failed',
+            updated_at = NOW()
 
-    WHERE
-      payment_signature =
-        ${signature}
+          WHERE
+            payment_signature =
+              ${signature}
 
-      AND status =
-        'processing'
-
-    RETURNING
-      rcx_raw_amount
-  )
-
-  UPDATE sale_state
-
-  SET
-    reserved_rcx_raw =
-      GREATEST(
-        0,
-        reserved_rcx_raw -
-          COALESCE(
-            (
-              SELECT
-                rcx_raw_amount
-              FROM failed
-              LIMIT 1
-            ),
-            0
-          )
-      ),
-
-    updated_at =
-      NOW()
-
-  WHERE id = 1
-`;
+            AND status =
+              'processing'
+        `;
 
         return NextResponse.json(
           {
@@ -1610,7 +1589,7 @@ if (claimed.length === 0) {
           }
         );
       }
-    }
+      }
 
     /*
     |--------------------------------------------------------------------------
