@@ -87,6 +87,38 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.raccoonx.xyz/#website",
+                  url: "https://www.raccoonx.xyz/",
+                  name: "RaccoonX",
+                  alternateName: "RCX",
+                  description:
+                    "Official website of RaccoonX (RCX), a Solana meme coin.",
+                  inLanguage: "en",
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://www.raccoonx.xyz/#organization",
+                  name: "RaccoonX",
+                  alternateName: "RCX",
+                  url: "https://www.raccoonx.xyz/",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://www.raccoonx.xyz/icon.png",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <VisitorTracker />
         {children}
       </body>
