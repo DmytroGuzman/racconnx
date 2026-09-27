@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -81,10 +81,10 @@ export default function PurchasesPage() {
   }
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-10">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-3xl font-black">Purchases</h1>
+          <h1 className="text-2xl font-black sm:text-3xl">Purchases</h1>
           <p className="mt-2 text-white/40">До 500 останніх записів із Neon.</p>
         </div>
         <div className="flex gap-2">
@@ -99,7 +99,7 @@ export default function PurchasesPage() {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 md:flex-row">
+      <div className="mt-6 flex flex-col gap-3 sm:mt-8 md:flex-row">
         <input value={query} onChange={(e) => setQuery(e.target.value)}
           placeholder="ID, wallet або transaction signature..."
           className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3 outline-none" />
@@ -117,7 +117,108 @@ export default function PurchasesPage() {
       </div>
       {error && <p className="mt-5 text-red-400">{error}</p>}
 
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10">
+      {/* MOBILE PURCHASES */}
+
+      <div className="mt-6 space-y-3 md:hidden">
+        {filtered.map((row) => (
+          <div
+            key={row.id}
+            className="rounded-2xl border border-white/10 bg-white/[0.035] p-4"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold text-white/30">
+                  #{row.id}
+                </p>
+
+                <p className="mt-1 text-xs text-white/40">
+                  {new Date(row.createdAt).toLocaleString()}
+                </p>
+              </div>
+
+              <span
+                className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-black uppercase ${statusClass(
+                  row.status
+                )}`}
+              >
+                {row.status}
+              </span>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="min-w-0 rounded-xl bg-black/20 p-3">
+                <p className="text-[10px] uppercase tracking-wider text-white/30">
+                  SOL
+                </p>
+
+                <p className="mt-1 break-words text-lg font-black">
+                  {row.sol.toLocaleString("en-US", {
+                    maximumFractionDigits: 9,
+                  })}
+                </p>
+              </div>
+
+              <div className="min-w-0 rounded-xl bg-black/20 p-3">
+                <p className="text-[10px] uppercase tracking-wider text-white/30">
+                  RCX
+                </p>
+
+                <p className="mt-1 break-words text-lg font-black">
+                  {row.rcx.toLocaleString("en-US")}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 border-t border-white/[0.07] pt-4">
+              <p className="text-[10px] uppercase tracking-wider text-white/30">
+                Buyer
+              </p>
+
+              <a
+                href={`https://solscan.io/account/${row.buyerWallet}`}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1 inline-block font-mono text-sm text-purple-300"
+              >
+                {short(row.buyerWallet)} ↗
+              </a>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <a
+                href={`https://solscan.io/tx/${row.paymentSignature}`}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl border border-purple-400/20 bg-purple-400/[0.05] px-3 py-2.5 text-center text-xs font-bold text-purple-300"
+              >
+                Payment ↗
+              </a>
+
+              {row.rcxSignature ? (
+                <a
+                  href={`https://solscan.io/tx/${row.rcxSignature}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-xl border border-green-400/20 bg-green-400/[0.05] px-3 py-2.5 text-center text-xs font-bold text-green-300"
+                >
+                  Delivery ↗
+                </a>
+              ) : (
+                <div className="rounded-xl border border-white/[0.06] px-3 py-2.5 text-center text-xs font-bold text-white/20">
+                  No delivery
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {!loading && filtered.length === 0 && (
+          <div className="rounded-2xl border border-white/10 p-8 text-center text-sm text-white/30">
+            Nothing found.
+          </div>
+        )}
+      </div>
+      <div className="mt-6 hidden overflow-x-auto rounded-2xl border border-white/10 md:block">
         <table className="w-full min-w-[1150px] text-left text-sm">
           <thead className="bg-white/[0.035] text-xs uppercase text-white/35">
             <tr>
@@ -162,3 +263,7 @@ export default function PurchasesPage() {
     </div>
   );
 }
+
+
+
+

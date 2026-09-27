@@ -358,7 +358,7 @@ export default function AdminV3Dashboard() {
   */
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-10">
 
       {/* HEADER */}
 
@@ -427,18 +427,18 @@ export default function AdminV3Dashboard() {
 
       {/* TOP STATS */}
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4 xl:grid-cols-4">
         {cards.map(
           ([label, value]) => (
             <div
               key={label}
-              className="rounded-2xl border border-white/10 bg-white/[0.035] p-6"
+              className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6"
             >
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/35">
+              <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.10em] text-white/35 sm:text-xs sm:tracking-[0.14em]">
                 {label}
               </p>
 
-              <p className="mt-3 text-3xl font-black">
+              <p className="mt-2 break-words text-2xl font-black sm:mt-3 sm:text-3xl">
                 {value}
               </p>
             </div>
@@ -448,7 +448,7 @@ export default function AdminV3Dashboard() {
 
       {/* PRESALE */}
 
-      <div className="mt-4 rounded-2xl border border-purple-400/20 bg-purple-400/[0.025] p-6">
+      <div className="mt-4 rounded-2xl border border-purple-400/20 bg-purple-400/[0.025] p-4 sm:p-6">
 
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -481,7 +481,7 @@ export default function AdminV3Dashboard() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4 xl:grid-cols-4">
           <Metric
             label="Allocation"
             value={`${formatRcx(
@@ -545,7 +545,7 @@ export default function AdminV3Dashboard() {
 
       <div className="mt-4 grid gap-4 xl:grid-cols-3">
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 xl:col-span-2">
+        <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6 xl:col-span-2">
 
           <div className="flex items-center justify-between">
             <div>
@@ -571,7 +571,7 @@ export default function AdminV3Dashboard() {
             </a>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4 xl:grid-cols-4">
 
             <Metric
               label="SOL balance"
@@ -605,7 +605,7 @@ export default function AdminV3Dashboard() {
             />
           </div>
 
-          <p className="mt-5 text-xs leading-5 text-white/30">
+          <p className="mt-4 text-[11px] leading-5 text-white/30 sm:mt-5 sm:text-xs">
             На Sale Wallet фізично
             знаходиться{" "}
             {formatRcx(
@@ -620,7 +620,7 @@ export default function AdminV3Dashboard() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6">
+        <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6">
 
           <p className="font-black">
             Token Supply
@@ -630,7 +630,7 @@ export default function AdminV3Dashboard() {
             Mint supply on Solana
           </p>
 
-          <p className="mt-6 text-3xl font-black">
+          <p className="mt-4 break-words text-2xl font-black sm:mt-6 sm:text-3xl">
             {formatRcx(
               health.token.supply
             )}
@@ -641,12 +641,12 @@ export default function AdminV3Dashboard() {
           </p>
 
           <div className="mt-6 border-t border-white/10 pt-5">
-            <p className="text-xs text-white/30">
+            <p className="text-[10px] leading-4 text-white/30 sm:text-xs">
               Protected / non-presale
               balance on Sale Wallet
             </p>
 
-            <p className="mt-2 text-xl font-black text-white/70">
+            <p className="mt-2 break-words text-lg font-black text-white/70 sm:text-xl">
               {formatRcx(
                 protectedReserve
               )}{" "}
@@ -660,7 +660,7 @@ export default function AdminV3Dashboard() {
 
       <div className="mt-4 grid gap-4 xl:grid-cols-3">
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 xl:col-span-2">
+        <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6 xl:col-span-2">
 
           <div>
             <p className="font-black">
@@ -674,7 +674,7 @@ export default function AdminV3Dashboard() {
             </p>
           </div>
 
-          <div className="mt-8 flex h-52 items-end gap-2">
+          <div className="mt-6 flex h-40 items-end gap-1.5 sm:mt-8 sm:h-52 sm:gap-2">
             {days.length === 0 ? (
               <div className="m-auto text-sm text-white/30">
                 Ще немає даних для
@@ -720,7 +720,7 @@ export default function AdminV3Dashboard() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6">
+        <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6">
 
           <p className="font-black">
             Sale Health
@@ -804,12 +804,12 @@ function Metric({
   value: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-black/20 p-4">
-      <p className="text-xs text-white/30">
+    <div className="min-w-0 rounded-xl border border-white/[0.07] bg-black/20 p-3 sm:p-4">
+      <p className="text-[10px] leading-4 text-white/30 sm:text-xs">
         {label}
       </p>
 
-      <p className="mt-2 text-xl font-black">
+      <p className="mt-2 break-words text-base font-black leading-tight sm:text-xl">
         {value}
       </p>
     </div>
@@ -824,12 +824,12 @@ function MetricBox({
   value: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6">
-      <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/35">
+    <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6">
+      <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.10em] text-white/35 sm:text-xs sm:tracking-[0.14em]">
         {label}
       </p>
 
-      <p className="mt-3 text-2xl font-black">
+      <p className="mt-2 break-words text-xl font-black leading-tight sm:mt-3 sm:text-2xl">
         {value}
       </p>
     </div>
@@ -864,3 +864,10 @@ function HealthRow({
     </div>
   );
 }
+
+
+
+
+
+
+
