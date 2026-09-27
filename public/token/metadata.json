@@ -1,0 +1,22 @@
+﻿{
+  "name": "RaccoonX",
+  "symbol": "RCX",
+  "description": "RaccoonX (RCX) is a community-driven Solana meme coin inspired by the unstoppable spirit of the raccoon. Fun, bold, and built for the community.",
+  "image": "https://www.raccoonx.xyz/logo512.png",
+  "external_url": "https://www.raccoonx.xyz/",
+  "seller_fee_basis_points": 0,
+  "attributes": [],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://www.raccoonx.xyz/logo512.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "fungible",
+    "creators": []
+  },
+  "website": "https://www.raccoonx.xyz/",
+  "twitter": "https://x.com/RaccoonX_SOL",
+  "telegram": "https://t.me/+uTsr0QCGYuxjMzM6"
+}
