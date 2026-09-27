@@ -4,6 +4,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import AdminShell from "@/components/admin/AdminShell";
 import MaintenanceControl from "@/components/admin/MaintenanceControl";
 import PasskeySetup from "@/components/admin/PasskeySetup";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function SettingsPage() {
   if (!(await isAdminAuthenticated())) {
@@ -89,9 +90,18 @@ export default async function SettingsPage() {
           </div>
         </div>
 
+        <div className="mt-6">
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.18em] text-white/30 sm:text-xs">
+            Account
+          </p>
+
+          <LogoutButton />
+        </div>
+
       </div>
     </AdminShell>
   );
 }
+
 
 
