@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
+    "@simplewebauthn/browser": "^14.0.0",
+    "@simplewebauthn/server": "^14.0.3",
     "@solana/spl-token": "^0.4.15",
     "@solana/web3.js": "^1.99.0",
     "@tsparticles/engine": "^4.3.2",

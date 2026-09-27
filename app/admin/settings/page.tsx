@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import AdminShell from "@/components/admin/AdminShell";
 import MaintenanceControl from "@/components/admin/MaintenanceControl";
+import PasskeySetup from "@/components/admin/PasskeySetup";
 
 export default async function SettingsPage() {
   if (!(await isAdminAuthenticated())) {
@@ -65,7 +66,9 @@ export default async function SettingsPage() {
             Security
           </p>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6">
+          <PasskeySetup />
+
+          <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-6">
             <div className="flex items-start gap-3">
               <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-green-400/20 bg-green-400/[0.06] text-sm text-green-400">
                 ✓
@@ -90,3 +93,5 @@ export default async function SettingsPage() {
     </AdminShell>
   );
 }
+
+
