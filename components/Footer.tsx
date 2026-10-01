@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
   FaXTwitter,
   FaTelegram,
-  FaDiscord,
 } from "react-icons/fa6";
 
 import { siteConfig } from "../config/siteConfig";
@@ -22,11 +21,7 @@ const socials = [
     icon: FaTelegram,
     href: siteConfig.links.telegram,
   },
-  {
-    label: "Discord",
-    icon: FaDiscord,
-    href: siteConfig.links.discord,
-  },
+  
 ];
 
 export default function Footer() {

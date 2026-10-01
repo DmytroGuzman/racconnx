@@ -1,7 +1,9 @@
 ﻿export const siteConfig = {
   name: "RaccoonX",
   symbol: "RCX",
-    projectWallet: "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
+
+  projectWallet:
+    "27u67F7pogx1yZ5w7GPXAMkMPtyPWZwWcWvzq5erM6kP",
 
   token: {
     network: "Solana",
@@ -9,17 +11,17 @@
     tax: "0%",
     decimals: 9,
 
-    contract: "4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
+    contract:
+      "4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
 
-explorer:
-  "https://explorer.solana.com/address/4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
+    explorer:
+      "https://explorer.solana.com/address/4HZ4W6iZ8tErN3Neg7emz36EEvLsQFm9HuBKeocNToS7",
   },
 
   links: {
     // Socials
     twitter: "https://x.com/RaccoonX_SOL",
-    telegram: "#",
-    discord: "#",
+    telegram: "https://t.me/racconxrcx",
 
     // Trading
     buy: "#buy",
@@ -31,11 +33,10 @@ explorer:
   },
 
   navigation: [
-{
-  label: "Buy",
-  href: "#buy",
-},
-
+    {
+      label: "Buy",
+      href: "#buy",
+    },
     {
       label: "About",
       href: "#about",
