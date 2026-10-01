@@ -8,17 +8,8 @@ export const metadata: Metadata = {
 
   description: "RaccoonX administration panel",
 
-  manifest: "/manifest.webmanifest",
-
   icons: {
     icon: "/admin-icon-192.png",
-    apple: "/admin-icon-192.png",
-  },
-
-  appleWebApp: {
-    capable: true,
-    title: "RaccoonX Admin",
-    statusBarStyle: "black-translucent",
   },
 
   robots: {
