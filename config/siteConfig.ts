@@ -21,7 +21,7 @@
   links: {
     // Socials
     twitter: "https://x.com/RaccoonX_SOL",
-    telegram: "https://t.me/racconxrcx",
+    telegram: "https://t.me/raccoonx_rcx",
 
     // Trading
     buy: "#buy",
