@@ -529,7 +529,7 @@ export default function FAQ() {
                       </p>
 
                       <p className="mt-0.5 text-xs text-white/30">
-                        @racconxrcx
+                        @raccoonx_rcx
                       </p>
                     </div>
 
